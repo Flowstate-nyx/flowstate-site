@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact — Flowstate Technologies</title>
+    <meta name="description" content="Start the conversation. One message enters our Teller — we diagnose, scope, and build. WhatsApp or email. No commitment, no consulting fees.">
+    <meta property="og:title" content="Contact Flowstate Technologies">
+    <meta property="og:description" content="Operational architecture for hospitality teams. One message to start.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://flowstate.help/contact">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --void: #0A0A0F;
+            --grid: #1A1A2E;
+            --signal: #0066FF;
+            --signal-hover: #0052CC;
+            --signal-dim: rgba(0,102,255,0.08);
+            --signal-glow: rgba(0,102,255,0.15);
+            --purple: #7B2FBE;
+            --purple-hover: #6A28A3;
+            --white: #F5F5F7;
+            --steel: #8A8A9A;
+            --steel-dark: #5a5a6a;
+            --glass-bg: rgba(255,255,255,0.03);
+            --glass-border: rgba(255,255,255,0.08);
+            --glass-blur: 20px;
+            --glass-hover-bg: rgba(255,255,255,0.05);
+            --glass-hover-border: rgba(255,255,255,0.14);
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .noise-overlay { display: none !important; }
+            .reveal { opacity: 1 !important; transform: none !important; }
+        }
+
+        a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+            outline: 2px solid var(--signal);
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+
+        html { font-size: 16px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-primary);
+            background: var(--void);
+            color: var(--steel);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .noise-overlay {
+            position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.035;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' fill='white'/%3E%3C/svg%3E");
+        }
+
+        main { position: relative; z-index: 3; }
+
+        .section-container {
+            max-width: 1200px; margin: 0 auto;
+            padding: 0 clamp(1.5rem, 5vw, 4rem);
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-primary); color: var(--white);
+            line-height: 1.1; letter-spacing: -0.03em;
+        }
+        h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 900; }
+        h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; margin-bottom: 1rem; }
+        h3 { font-size: clamp(1.1rem, 1.5vw, 1.3rem); font-weight: 700; margin-bottom: 0.75rem; }
+
+        .section-label {
+            font-family: var(--font-mono); font-size: 0.75rem; font-weight: 500;
+            text-transform: uppercase; letter-spacing: 0.15em;
+            color: var(--signal); margin-bottom: 2rem;
+        }
+
+        /* HEADER */
+        header {
+            position: fixed; top: 24px; left: 50%; transform: translateX(-50%);
+            z-index: 100; display: flex; align-items: center; gap: 2rem;
+            padding: 12px 28px;
+            background: rgba(10, 10, 15, 0.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border); border-radius: 100px;
+            transition: all 0.4s var(--ease-out-expo); max-width: 90vw;
+        }
+        header.scrolled { top: 12px; padding: 8px 24px; background: rgba(10,10,15,0.85); border-color: rgba(255,255,255,0.12); }
+
+        .logo { font-family: var(--font-primary); font-weight: 900; font-size: 1rem; color: var(--white); text-decoration: none; white-space: nowrap; letter-spacing: -0.02em; }
+        .logo span { background: linear-gradient(135deg, var(--signal), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+        nav { display: flex; gap: 0.25rem; align-items: center; }
+        nav a { font-size: 0.8rem; font-weight: 500; color: var(--steel); text-decoration: none; padding: 6px 14px; border-radius: 100px; transition: color 0.25s ease, background 0.25s ease; }
+        nav a:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+        nav a.active { color: var(--white); }
+        .nav-cta { font-size: 0.8rem; font-weight: 600; color: var(--void) !important; background: var(--signal) !important; padding: 8px 20px !important; border-radius: 100px; transition: background 0.25s ease !important; }
+        .nav-cta:hover { background: var(--signal-hover) !important; }
+
+        .hamburger { display: none; background: none; border: none; cursor: pointer; width: 28px; height: 20px; position: relative; flex-shrink: 0; }
+        .hamburger span { display: block; width: 100%; height: 2px; background: var(--white); border-radius: 2px; position: absolute; left: 0; transition: all 0.3s ease; }
+        .hamburger span:nth-child(1) { top: 0; }
+        .hamburger span:nth-child(2) { top: 9px; }
+        .hamburger span:nth-child(3) { top: 18px; }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg); top: 9px; }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg); top: 9px; }
+
+        .mobile-menu { position: fixed; inset: 0; z-index: 99; background: rgba(10,10,15,0.95); backdrop-filter: blur(30px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; opacity: 0; pointer-events: none; transition: opacity 0.4s var(--ease-out-expo); }
+        .mobile-menu.open { opacity: 1; pointer-events: all; }
+        .mobile-menu a { font-size: 1.5rem; font-weight: 700; color: var(--white); text-decoration: none; opacity: 0; transform: translateY(20px); transition: opacity 0.4s ease, transform 0.4s var(--ease-out-expo), color 0.2s ease; }
+        .mobile-menu.open a { opacity: 1; transform: translateY(0); }
+        .mobile-menu a:hover { color: var(--signal); }
+        .mobile-menu a:nth-child(1) { transition-delay: 0.05s; }
+        .mobile-menu a:nth-child(2) { transition-delay: 0.1s; }
+        .mobile-menu a:nth-child(3) { transition-delay: 0.15s; }
+        .mobile-menu a:nth-child(4) { transition-delay: 0.2s; }
+        .mobile-menu a:nth-child(5) { transition-delay: 0.25s; }
+
+        @media (max-width: 768px) { nav { display: none; } .hamburger { display: block; } }
+
+        /* HERO */
+        .contact-hero {
+            min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
+            padding: clamp(120px, 14vh, 180px) 0 clamp(60px, 8vh, 100px);
+        }
+        .contact-hero .section-container { max-width: 1100px; }
+
+        .hero-label {
+            font-family: var(--font-mono); font-size: 0.75rem; font-weight: 500;
+            text-transform: uppercase; letter-spacing: 0.2em; color: var(--signal);
+            margin-bottom: 2rem; opacity: 0; transform: translateY(20px);
+            animation: fadeUp 0.8s var(--ease-out-expo) 0.3s forwards;
+        }
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+        .contact-hero h1 { margin-bottom: 1.5rem; opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s var(--ease-out-expo) 0.5s forwards; }
+        .contact-hero .hero-sub {
+            font-size: clamp(1rem, 1.2vw, 1.15rem); color: var(--steel);
+            max-width: 600px; line-height: 1.7; margin-bottom: 3rem;
+            opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s var(--ease-out-expo) 0.7s forwards;
+        }
+
+        /* CONTACT GRID */
+        .contact-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
+            opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s var(--ease-out-expo) 0.9s forwards;
+        }
+        @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; gap: 2rem; } }
+
+        /* CONTACT CARDS */
+        .contact-card {
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            border-radius: 20px; padding: clamp(2rem, 3vw, 3rem);
+            transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+            display: flex; flex-direction: column; gap: 1.5rem;
+        }
+        .contact-card:hover { background: var(--glass-hover-bg); border-color: var(--glass-hover-border); box-shadow: 0 0 40px rgba(0,102,255,0.06); }
+
+        .contact-card-icon {
+            width: 48px; height: 48px; border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .contact-card-icon svg { width: 28px; height: 28px; }
+        .contact-card-icon.whatsapp { background: rgba(37,211,102,0.12); }
+        .contact-card-icon.whatsapp svg { fill: #25D366; }
+        .contact-card-icon.email { background: rgba(0,102,255,0.1); }
+        .contact-card-icon.email svg { color: var(--signal); }
+
+        .contact-card h2 { margin-bottom: 0; }
+        .contact-card p { font-size: 0.92rem; line-height: 1.65; color: var(--steel); }
+
+        .contact-link {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            font-family: var(--font-primary); font-size: 1rem; font-weight: 600;
+            text-decoration: none; padding: 16px 36px; border-radius: 100px;
+            transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
+            text-align: center; justify-content: center;
+        }
+        .contact-link.whatsapp-btn {
+            color: white; background: #25D366;
+        }
+        .contact-link.whatsapp-btn:hover { background: #1fba59; box-shadow: 0 0 40px rgba(37,211,102,0.25); }
+        .contact-link.email-btn {
+            color: var(--void); background: var(--signal);
+        }
+        .contact-link.email-btn:hover { background: var(--signal-hover); box-shadow: 0 0 40px rgba(0,102,255,0.25); }
+
+        .contact-detail {
+            font-family: var(--font-mono); font-size: 0.78rem; color: var(--steel-dark);
+            letter-spacing: 0.02em;
+        }
+
+        /* PROCESS SECTION */
+        .process-section { padding: clamp(40px, 5vw, 80px) 0; }
+        .process-section .section-container { max-width: 1100px; }
+
+        .process-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2.5rem;
+        }
+        @media (max-width: 768px) { .process-grid { grid-template-columns: 1fr; } }
+
+        .process-card {
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            border-radius: 16px; padding: clamp(1.5rem, 2.5vw, 2rem);
+            transition: background 0.4s ease, border-color 0.4s ease;
+            position: relative;
+        }
+        .process-card:hover { background: var(--glass-hover-bg); border-color: var(--glass-hover-border); }
+        .process-num {
+            font-family: var(--font-mono); font-size: 0.65rem; font-weight: 500;
+            color: var(--signal); letter-spacing: 0.1em; margin-bottom: 0.75rem;
+        }
+        .process-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .process-card p { font-size: 0.88rem; line-height: 1.6; color: var(--steel); }
+
+        /* INFO STRIP */
+        .info-strip {
+            padding: clamp(32px, 4vw, 56px) 0; border-top: 1px solid var(--glass-border);
+            margin-top: clamp(40px, 5vw, 80px);
+        }
+        .info-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; text-align: center;
+        }
+        .info-item h3 { font-size: 0.95rem; margin-bottom: 0.4rem; }
+        .info-item p { font-size: 0.82rem; color: var(--steel); }
+        .info-item .highlight { color: var(--signal); }
+        @media (max-width: 768px) { .info-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+        /* REVEAL */
+        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo); }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal-child { opacity: 0; transform: translateY(30px); transition: opacity 0.6s var(--ease-out-expo), transform 0.6s var(--ease-out-expo); }
+        .reveal.visible .reveal-child { opacity: 1; transform: translateY(0); }
+        .reveal.visible .reveal-child:nth-child(1) { transition-delay: 0.05s; }
+        .reveal.visible .reveal-child:nth-child(2) { transition-delay: 0.1s; }
+        .reveal.visible .reveal-child:nth-child(3) { transition-delay: 0.15s; }
+
+        footer { position: relative; z-index: 3; text-align: center; padding: 3rem 2rem; font-size: 0.8rem; color: var(--steel-dark); border-top: 1px solid var(--glass-border); }
+        footer a { color: var(--steel); text-decoration: none; transition: color 0.25s ease; }
+        footer a:hover { color: var(--signal); }
+    </style>
+</head>
+<body>
+    <div class="noise-overlay" aria-hidden="true"></div>
+
+    <header>
+        <a href="/" class="logo">Flow<span>state</span></a>
+        <nav>
+            <a href="/services">Services</a>
+            <a href="/#method">Method</a>
+            <a href="/#portfolio">Portfolio</a>
+            <a href="/contact" class="active">Contact</a>
+            <a href="https://wa.me/50237408644" target="_blank" rel="noopener" class="nav-cta">Get Started</a>
+        </nav>
+        <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="/">Home</a>
+        <a href="/services">Services</a>
+        <a href="/#method">Method</a>
+        <a href="/#portfolio">Portfolio</a>
+        <a href="/contact">Contact</a>
+    </div>
+
+    <main>
+        <section class="contact-hero">
+            <div class="section-container">
+                <div class="hero-label">// START THE CONVERSATION</div>
+                <h1>One message enters our Teller.</h1>
+                <p class="hero-sub">Send a message — we diagnose your team's workflow, identify where guest requests get lost, and scope the build. No commitment. No consulting fees. If we're a fit, your operation starts self-optimizing within 90 days.</p>
+
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <div class="contact-card-icon whatsapp">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        </div>
+                        <h2>WhatsApp</h2>
+                        <p>The fastest way to reach us. Send a message — describe your operation, your team size, and what's breaking. We respond within 24 hours.</p>
+                        <a href="https://wa.me/50237408644?text=Hola%2C%20me%20interesa%20una%20diagn%C3%B3stica%20operativa%20para%20mi%20negocio" target="_blank" rel="noopener" class="contact-link whatsapp-btn">Message on WhatsApp →</a>
+                        <span class="contact-detail">+502 3740 8644 · Guatemala</span>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-card-icon email">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>
+                        </div>
+                        <h2>Email</h2>
+                        <p>Prefer a detailed introduction? Send us your operation overview, current pain points, and what you've tried. We'll respond with a diagnostic scope.</p>
+                        <a href="mailto:info@flowstate.help" class="contact-link email-btn">Send Email →</a>
+                        <span class="contact-detail">info@flowstate.help</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROCESS -->
+        <section class="process-section reveal">
+            <div class="section-container">
+                <div class="section-label">// WHAT HAPPENS NEXT</div>
+                <h2>From first message to running operation.</h2>
+
+                <div class="process-grid">
+                    <div class="process-card reveal-child">
+                        <div class="process-num">01</div>
+                        <h3>You Message Us</h3>
+                        <p>Describe your operation — team size, departments, what's falling through the cracks. WhatsApp or email. Takes 2 minutes.</p>
+                    </div>
+                    <div class="process-card reveal-child">
+                        <div class="process-num">02</div>
+                        <h3>We Diagnose</h3>
+                        <p>We map your current workflows, identify where requests get lost, and scope the build. Free. No commitment. You get a clear picture of what's broken and what it takes to fix it.</p>
+                    </div>
+                    <div class="process-card reveal-child">
+                        <div class="process-num">03</div>
+                        <h3>We Build & Deploy</h3>
+                        <p>90-day engagement. Month 1: workspace architecture + SOPs + AI agents. Month 2: integrations + automations. Month 3: training + handover. Your team runs as one synchronized unit.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- INFO STRIP -->
+        <section class="info-strip reveal">
+            <div class="section-container">
+                <div class="info-grid">
+                    <div class="info-item reveal-child">
+                        <h3><span class="highlight">$2,500</span>/month</h3>
+                        <p>3-month minimum engagement. Everything included — workspace, SOPs, automations, AI agents, training.</p>
+                    </div>
+                    <div class="info-item reveal-child">
+                        <h3><span class="highlight">24-hour</span> response</h3>
+                        <p>Every message gets a response within 24 hours. No ghosting. No sales funnels. Direct communication.</p>
+                    </div>
+                    <div class="info-item reveal-child">
+                        <h3><span class="highlight">Lake Atitlan</span>, Guatemala</h3>
+                        <p>We're on the ground where your operation runs. Same timezone. Same context. We understand hospitality here.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        &copy; 2026 Flowstate Technologies &middot; Guatemala &middot; <a href="/">flowstate.help</a> &middot; Precision in Motion.
+    </footer>
+
+    <script>
+    (function() {
+        'use strict';
+
+        // Header scroll
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => { header.classList.toggle('scrolled', window.scrollY > 50); }, { passive: true });
+
+        // Hamburger
+        const hamburger = document.querySelector('.hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        hamburger.addEventListener('click', () => {
+            const isOpen = mobileMenu.classList.toggle('open');
+            hamburger.classList.toggle('active');
+            hamburger.setAttribute('aria-expanded', isOpen);
+            document.body.style.overflow = isOpen ? 'hidden' : '';
+        });
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => { mobileMenu.classList.remove('open'); hamburger.classList.remove('active'); hamburger.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; });
+        });
+
+        // Scroll reveal
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!prefersReducedMotion) {
+            const revealObs = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
+            document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+        } else { document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible')); }
+    })();
+    </script>
+</body>
+</html>

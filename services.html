@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services — Flowstate Technologies</title>
+    <meta name="description" content="Operational architecture for hospitality businesses. $2,500/mo — workspace, SOPs, automations, AI delegation. 90-day delivery powered by DEF.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --void: #0A0A0F;
+            --grid: #1A1A2E;
+            --signal: #0066FF;
+            --signal-hover: #0052CC;
+            --signal-dim: rgba(0,102,255,0.08);
+            --signal-glow: rgba(0,102,255,0.15);
+            --purple: #7B2FBE;
+            --purple-hover: #6A28A3;
+            --white: #F5F5F7;
+            --steel: #8A8A9A;
+            --steel-dark: #5a5a6a;
+            --glass-bg: rgba(255,255,255,0.03);
+            --glass-border: rgba(255,255,255,0.08);
+            --glass-blur: 20px;
+            --glass-hover-bg: rgba(255,255,255,0.05);
+            --glass-hover-border: rgba(255,255,255,0.14);
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .noise-overlay { display: none !important; }
+            .reveal { opacity: 1 !important; transform: none !important; }
+        }
+
+        a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+            outline: 2px solid var(--signal);
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+
+        html { font-size: 16px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-primary);
+            background: var(--void);
+            color: var(--steel);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .noise-overlay {
+            position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.035;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' fill='white'/%3E%3C/svg%3E");
+        }
+
+        main { position: relative; z-index: 3; }
+
+        .section-container {
+            max-width: 1200px; margin: 0 auto;
+            padding: 0 clamp(1.5rem, 5vw, 4rem);
+        }
+
+        .container-narrow {
+            max-width: 800px; margin: 0 auto;
+            padding: 0 clamp(1.5rem, 5vw, 4rem);
+        }
+
+        section { padding: clamp(24px, 3.5vw, 48px) 0; }
+
+        h1, h2, h3 {
+            font-family: var(--font-primary); color: var(--white);
+            line-height: 1.1; letter-spacing: -0.03em;
+        }
+        h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 900; }
+        h2 { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 700; margin-bottom: 1.5rem; }
+        h3 { font-size: clamp(1.1rem, 1.5vw, 1.3rem); font-weight: 700; margin-bottom: 0.75rem; }
+
+        .section-label {
+            font-family: var(--font-mono); font-size: 0.75rem; font-weight: 500;
+            text-transform: uppercase; letter-spacing: 0.15em;
+            color: var(--signal); margin-bottom: 2rem;
+        }
+
+        .section-sub {
+            font-size: clamp(1rem, 1.2vw, 1.15rem); color: var(--steel);
+            max-width: 680px; margin-top: 1rem; line-height: 1.7;
+        }
+
+        /* HEADER */
+        header {
+            position: fixed; top: 24px; left: 50%; transform: translateX(-50%);
+            z-index: 100; display: flex; align-items: center; gap: 2rem;
+            padding: 12px 28px;
+            background: rgba(10, 10, 15, 0.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border); border-radius: 100px;
+            transition: all 0.4s var(--ease-out-expo); max-width: 90vw;
+        }
+        header.scrolled { top: 12px; padding: 8px 24px; background: rgba(10,10,15,0.85); border-color: rgba(255,255,255,0.12); }
+
+        .logo { font-family: var(--font-primary); font-weight: 900; font-size: 1rem; color: var(--white); text-decoration: none; white-space: nowrap; letter-spacing: -0.02em; }
+        .logo span { background: linear-gradient(135deg, var(--signal), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+        nav { display: flex; gap: 0.25rem; align-items: center; }
+        nav a { font-size: 0.8rem; font-weight: 500; color: var(--steel); text-decoration: none; padding: 6px 14px; border-radius: 100px; transition: color 0.25s ease, background 0.25s ease; }
+        nav a:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+        .nav-cta { font-size: 0.8rem; font-weight: 600; color: var(--void) !important; background: var(--signal) !important; padding: 8px 20px !important; border-radius: 100px; transition: background 0.25s ease, transform 0.25s var(--ease-spring) !important; }
+        .nav-cta:hover { background: var(--signal-hover) !important; }
+
+        .hamburger { display: none; background: none; border: none; cursor: pointer; width: 28px; height: 20px; position: relative; flex-shrink: 0; }
+        .hamburger span { display: block; width: 100%; height: 2px; background: var(--white); border-radius: 2px; position: absolute; left: 0; transition: all 0.3s ease; }
+        .hamburger span:nth-child(1) { top: 0; }
+        .hamburger span:nth-child(2) { top: 9px; }
+        .hamburger span:nth-child(3) { top: 18px; }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg); top: 9px; }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg); top: 9px; }
+
+        .mobile-menu { position: fixed; inset: 0; z-index: 99; background: rgba(10,10,15,0.95); backdrop-filter: blur(30px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; opacity: 0; pointer-events: none; transition: opacity 0.4s var(--ease-out-expo); }
+        .mobile-menu.open { opacity: 1; pointer-events: all; }
+        .mobile-menu a { font-size: 1.5rem; font-weight: 700; color: var(--white); text-decoration: none; opacity: 0; transform: translateY(20px); transition: opacity 0.4s ease, transform 0.4s var(--ease-out-expo), color 0.2s ease; }
+        .mobile-menu.open a { opacity: 1; transform: translateY(0); }
+        .mobile-menu a:hover { color: var(--signal); }
+        .mobile-menu a:nth-child(1) { transition-delay: 0.05s; }
+        .mobile-menu a:nth-child(2) { transition-delay: 0.1s; }
+        .mobile-menu a:nth-child(3) { transition-delay: 0.15s; }
+        .mobile-menu a:nth-child(4) { transition-delay: 0.2s; }
+        .mobile-menu a:nth-child(5) { transition-delay: 0.25s; }
+        .mobile-menu a:nth-child(6) { transition-delay: 0.3s; }
+
+        @media (max-width: 768px) { nav { display: none; } .hamburger { display: block; } }
+
+        /* HERO */
+        .hero {
+            min-height: 60vh; display: flex; flex-direction: column; justify-content: center;
+            padding: clamp(120px, 15vh, 180px) 0 clamp(32px, 4vh, 48px);
+        }
+        .hero .section-container { max-width: 900px; }
+        .hero-label { font-family: var(--font-mono); font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.2em; color: var(--signal); margin-bottom: 2rem; opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s var(--ease-out-expo) 0.3s forwards; }
+        .hero h1 { margin-bottom: 1.5rem; }
+        .hero-sub { font-size: clamp(1.05rem, 1.3vw, 1.2rem); color: var(--steel); max-width: 640px; line-height: 1.7; margin-bottom: 0; opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s var(--ease-out-expo) 0.9s forwards; }
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+        /* GLASS CARDS */
+        .glass-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px; padding: clamp(1.5rem, 2.5vw, 2rem); transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, transform 0.15s ease; will-change: transform; }
+        .glass-card:hover { background: var(--glass-hover-bg); border-color: var(--glass-hover-border); box-shadow: 0 0 30px rgba(0,102,255,0.06); }
+        .glass-card p { font-size: 0.92rem; line-height: 1.65; color: var(--steel); }
+        .glass-card .card-icon { width: 28px; height: 28px; color: var(--signal); margin-bottom: 1rem; }
+
+        /* REVEAL */
+        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo); }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal-child { opacity: 0; transform: translateY(30px); transition: opacity 0.6s var(--ease-out-expo), transform 0.6s var(--ease-out-expo); }
+        .reveal.visible .reveal-child { opacity: 1; transform: translateY(0); }
+        .reveal.visible .reveal-child:nth-child(1) { transition-delay: 0.05s; }
+        .reveal.visible .reveal-child:nth-child(2) { transition-delay: 0.1s; }
+        .reveal.visible .reveal-child:nth-child(3) { transition-delay: 0.15s; }
+        .reveal.visible .reveal-child:nth-child(4) { transition-delay: 0.2s; }
+        .reveal.visible .reveal-child:nth-child(5) { transition-delay: 0.25s; }
+        .reveal.visible .reveal-child:nth-child(6) { transition-delay: 0.3s; }
+        .reveal.visible .reveal-child:nth-child(7) { transition-delay: 0.35s; }
+        .reveal.visible .reveal-child:nth-child(8) { transition-delay: 0.4s; }
+
+        .split-heading .split-word { display: inline-block; opacity: 0; transform: translateY(100%); transition: opacity 0.5s var(--ease-out-expo), transform 0.5s var(--ease-out-expo); }
+        .split-heading.animate .split-word { opacity: 1; transform: translateY(0); }
+
+        /* BUTTONS */
+        .btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-primary); font-size: 1rem; font-weight: 600; color: var(--void); background: var(--signal); padding: 16px 36px; border-radius: 100px; text-decoration: none; border: none; cursor: pointer; transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease; will-change: transform; }
+        .btn-primary:hover { background: var(--signal-hover); box-shadow: 0 0 40px rgba(0,102,255,0.25); }
+        .btn-secondary { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-primary); font-size: 0.95rem; font-weight: 500; color: var(--steel); text-decoration: none; padding: 12px 0; transition: color 0.25s ease; }
+        .btn-secondary:hover { color: var(--white); }
+
+        /* ═══ PRICING ═══ */
+        .pricing-card {
+            background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 20px;
+            padding: clamp(2rem, 4vw, 3rem); position: relative; overflow: hidden;
+            max-width: 680px; margin: 3rem auto 0;
+        }
+        .pricing-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, var(--signal), var(--purple));
+        }
+        .pricing-badge {
+            display: inline-block; font-family: var(--font-mono); font-size: 0.65rem; font-weight: 500;
+            text-transform: uppercase; letter-spacing: 0.12em; color: var(--signal);
+            background: var(--signal-dim); border: 1px solid rgba(0,102,255,0.15);
+            padding: 4px 12px; border-radius: 100px; margin-bottom: 1.5rem;
+        }
+        .pricing-amount {
+            font-size: clamp(3rem, 6vw, 4rem); font-weight: 900; color: var(--white);
+            letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.25rem;
+        }
+        .pricing-amount .currency { font-size: 0.5em; color: var(--signal); vertical-align: super; }
+        .pricing-amount .period { font-size: 0.3em; color: var(--steel); font-weight: 500; letter-spacing: 0; }
+        .pricing-term { font-size: 0.9rem; color: var(--steel); margin-bottom: 2rem; }
+        .pricing-term strong { color: var(--white); }
+
+        .pricing-includes { list-style: none; display: grid; gap: 0.75rem; margin-bottom: 2rem; }
+        .pricing-includes li {
+            display: flex; align-items: flex-start; gap: 0.75rem;
+            font-size: 0.9rem; color: var(--steel); line-height: 1.5;
+        }
+        .pricing-includes li .check {
+            width: 20px; height: 20px; min-width: 20px; border-radius: 50%;
+            background: rgba(0,102,255,0.1); border: 1px solid rgba(0,102,255,0.2);
+            display: flex; align-items: center; justify-content: center; margin-top: 2px;
+        }
+        .pricing-includes li .check svg { width: 12px; height: 12px; color: var(--signal); }
+
+        .pricing-cta { text-align: center; margin-top: 2rem; }
+
+        /* ═══ DELIVERABLES GRID ═══ */
+        .deliverables-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+        @media (max-width: 1024px) { .deliverables-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { .deliverables-grid { grid-template-columns: 1fr; } }
+
+        .deliverable-card {
+            background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px;
+            padding: clamp(1.25rem, 2vw, 1.75rem); transition: background 0.4s ease, border-color 0.4s ease;
+        }
+        .deliverable-card:hover { background: var(--glass-hover-bg); border-color: var(--glass-hover-border); }
+        .deliverable-card .card-number {
+            font-family: var(--font-mono); font-size: 0.65rem; font-weight: 500;
+            color: var(--signal); letter-spacing: 0.1em; margin-bottom: 0.75rem; display: block;
+        }
+        .deliverable-card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+        .deliverable-card p { font-size: 0.82rem; line-height: 1.6; color: var(--steel); }
+        .deliverable-card .method-tag {
+            display: inline-block; font-family: var(--font-mono); font-size: 0.6rem;
+            padding: 2px 8px; border-radius: 100px; margin-top: 0.65rem;
+            background: rgba(123,47,190,0.08); border: 1px solid rgba(123,47,190,0.15); color: var(--purple);
+        }
+
+        /* ═══ SCOPE TABLE ═══ */
+        .scope-table {
+            width: 100%; border-collapse: collapse; margin-top: 2rem;
+            font-size: 0.88rem;
+        }
+        .scope-table thead th {
+            font-family: var(--font-mono); font-size: 0.65rem; font-weight: 500;
+            text-transform: uppercase; letter-spacing: 0.12em; color: var(--signal);
+            text-align: left; padding: 1rem 1.25rem; border-bottom: 1px solid var(--glass-border);
+        }
+        .scope-table tbody td {
+            padding: 0.85rem 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.04);
+            color: var(--steel); vertical-align: top;
+        }
+        .scope-table tbody tr:hover td { background: rgba(255,255,255,0.015); }
+        .scope-table .item-name { color: var(--white); font-weight: 500; }
+        .scope-table .item-month {
+            font-family: var(--font-mono); font-size: 0.7rem; color: var(--signal);
+        }
+
+        /* ═══ FAQ ACCORDION ═══ */
+        .faq-list { display: grid; gap: 0.75rem; margin-top: 2.5rem; }
+        .faq-item {
+            background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px;
+            overflow: hidden; transition: border-color 0.3s ease;
+        }
+        .faq-item:hover { border-color: var(--glass-hover-border); }
+        .faq-item.open { border-color: rgba(0,102,255,0.15); }
+
+        .faq-question {
+            width: 100%; display: flex; align-items: center; justify-content: space-between;
+            gap: 1rem; padding: 1.25rem 1.5rem; background: none; border: none; cursor: pointer;
+            font-family: var(--font-primary); font-size: 0.95rem; font-weight: 600;
+            color: var(--white); text-align: left; transition: color 0.3s ease;
+        }
+        .faq-question:hover { color: var(--signal); }
+
+        .faq-icon {
+            width: 24px; height: 24px; min-width: 24px; position: relative;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .faq-icon span {
+            display: block; width: 14px; height: 2px; background: var(--steel);
+            border-radius: 2px; position: absolute; transition: transform 0.3s var(--ease-out-expo), opacity 0.3s ease;
+        }
+        .faq-icon span:nth-child(2) { transform: rotate(90deg); }
+        .faq-item.open .faq-icon span:nth-child(2) { transform: rotate(0deg); opacity: 0; }
+
+        .faq-answer {
+            max-height: 0; overflow: hidden;
+            transition: max-height 0.4s var(--ease-out-expo), padding 0.4s var(--ease-out-expo);
+        }
+        .faq-item.open .faq-answer { max-height: 300px; }
+        .faq-answer-inner {
+            padding: 0 1.5rem 1.25rem;
+            font-size: 0.88rem; line-height: 1.7; color: var(--steel);
+        }
+        .faq-answer-inner strong { color: var(--white); font-weight: 600; }
+
+        /* ═══ NOT INCLUDED ═══ */
+        .not-included {
+            background: rgba(255,255,255,0.015); border: 1px solid var(--glass-border); border-radius: 16px;
+            padding: clamp(1.5rem, 2.5vw, 2rem); margin-top: 3rem;
+        }
+        .not-included h3 { font-size: 0.95rem; margin-bottom: 1rem; color: var(--steel); }
+        .not-included ul { list-style: none; display: grid; gap: 0.5rem; }
+        .not-included li {
+            display: flex; align-items: center; gap: 0.75rem;
+            font-size: 0.85rem; color: var(--steel-dark);
+        }
+        .not-included li .x-mark { color: #ff4444; font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; }
+
+        /* ═══ CTA ═══ */
+        .cta-section { text-align: center; padding: clamp(32px, 5vw, 64px) 0; }
+        .cta-section h2 { margin-bottom: 1.5rem; }
+        .cta-section .section-sub { margin: 0 auto 2.5rem; text-align: center; }
+        .cta-section .btn-secondary { display: block; margin-top: 1rem; text-align: center; }
+
+        footer { position: relative; z-index: 3; text-align: center; padding: 3rem 2rem; font-size: 0.8rem; color: var(--steel-dark); border-top: 1px solid var(--glass-border); }
+        footer a { color: var(--steel); text-decoration: none; transition: color 0.25s ease; }
+        footer a:hover { color: var(--signal); }
+
+        .whatsapp-float { position: fixed; bottom: 28px; right: 28px; z-index: 90; width: 56px; height: 56px; border-radius: 50%; background: #25D366; display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 4px 20px rgba(37,211,102,0.3); transition: transform 0.3s var(--ease-spring), box-shadow 0.3s ease; }
+        .whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 6px 30px rgba(37,211,102,0.4); }
+        .whatsapp-float svg { width: 28px; height: 28px; fill: white; }
+
+        .magnetic-wrap { display: inline-block; position: relative; }
+
+        /* ═══ DIVIDER ═══ */
+        .divider { border: none; border-top: 1px solid var(--glass-border); margin: 0; }
+    </style>
+</head>
+<body>
+    <div class="noise-overlay" aria-hidden="true"></div>
+
+    <header>
+        <a href="/" class="logo">Flow<span>state</span></a>
+        <nav>
+            <a href="/">Home</a>
+            <a href="#deliverables">Deliverables</a>
+            <a href="#pricing">Pricing</a>
+            <a href="/contact">Contact</a>
+            <a href="https://wa.me/50237408644" target="_blank" rel="noopener" class="nav-cta magnetic-wrap">Get Started</a>
+        </nav>
+        <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="/">Home</a>
+        <a href="#deliverables">Deliverables</a>
+        <a href="#pricing">Pricing</a>
+        <a href="/contact">Contact</a>
+        <a href="https://wa.me/50237408644" target="_blank" rel="noopener">Get Started →</a>
+    </div>
+
+    <main>
+        <!-- ═══ HERO ═══ -->
+        <section class="hero">
+            <div class="section-container">
+                <div class="hero-label">// SERVICES · OPERATIONAL ARCHITECTURE</div>
+                <h1 class="split-heading" data-split>We don't consult.<br>We install systems.</h1>
+                <p class="hero-sub">One engagement. 90 days. Your entire operation enters one Teller, flows through Purpose, Stage, and State, and reaches Execution — automatically. Powered by DEF, the AI engine that makes your business learn from its own outcomes.</p>
+            </div>
+        </section>
+
+        <!-- ═══ WHAT YOU GET ═══ -->
+        <section id="deliverables" class="reveal">
+            <div class="section-container">
+                <div class="section-label">// 01 — DELIVERABLES</div>
+                <h2 class="split-heading" data-split>Everything your operation needs to run itself</h2>
+                <p class="section-sub">Each deliverable follows the Flowstate Method. Items enter the Teller, get classified by Purpose, move through Stages, and reach Execution. Here's what gets built.</p>
+
+                <div class="deliverables-grid">
+                    <div class="deliverable-card reveal-child">
+                        <span class="card-number">01</span>
+                        <h3>Workspace Architecture</h3>
+                        <p>Full ClickUp workspace per department. Every team gets its own Teller, its own Running Lane, and a clear pipeline from Pending to Done. No task falls through the cracks.</p>
+                        <span class="method-tag">Teller + Stage</span>
+                    </div>
+                    <div class="deliverable-card reveal-child">
+                        <span class="card-number">02</span>
+                        <h3>Company Wiki</h3>
+                        <p>Complete operational knowledge base. Role descriptions, onboarding checklists, daily routines, emergency protocols. Every SOP written, organized, and searchable.</p>
+                        <span class="method-tag">Execution</span>
+                    </div>
+                    <div class="deliverable-card reveal-child">
+                        <span class="card-number">03</span>
+                        <h3>Department SOPs</h3>
+                        <p>Step-by-step procedures for every recurring operation. From opening checklists to closing reconciliation. Clear enough for any new hire to follow on day one.</p>
+                        <span class="method-tag">Execution</span>
+                    </div>
+                    <div class="deliverable-card reveal-child">
+                        <span class="card-number">04</span>
+                        <h3>Automations & Integrations</h3>
+                        <p>n8n workflows connecting your POS, banking, inventory, and reporting. Data flows automatically. Reports generate themselves. Managers stop chasing information.</p>
+                        <span class="method-tag">State: Flow</span>
+                    </div>
+                    <div class="deliverable-card reveal-child">
+                        <span class="card-number">05</span>
+                        <h3>Operational Dashboards</h3>
+                        <p>Real-time visibility into revenue, tasks, team performance, and inventory. The State of every item — visible at a glance. No more "how are we doing?" meetings.</p>
+                        <span class="method-tag">Stage + State</span>
+                    </div>
+                    <div class="deliverable-card reveal-child">
+                        <span class="card-number">06</span>
+                        <h3>AI Agent Deployment</h3>
+                        <p>DEF's CEO agent receives items via WhatsApp. Classifies Purpose and State. Delegates to the right department manager. The Teller runs itself — your team just executes.</p>
+                        <span class="method-tag">DEF Engine</span>
+                    </div>
+                    <div class="deliverable-card reveal-child">
+                        <span class="card-number">07</span>
+                        <h3>WhatsApp Operations</h3>
+                        <p>Your team receives tasks in the State they need — Flow, Follow Up, or Waiting. They respond when done. DEF moves the Stage to Done. No new software to learn.</p>
+                        <span class="method-tag">State</span>
+                    </div>
+                    <div class="deliverable-card reveal-child">
+                        <span class="card-number">08</span>
+                        <h3>Learning Loop</h3>
+                        <p>DEF tracks every item that reaches Execution. Detects patterns. Writes SOPs automatically. Scores quality. Your operation doesn't just run — it gets better every week.</p>
+                        <span class="method-tag">Learning Loop</span>
+                    </div>
+                    <div class="deliverable-card reveal-child">
+                        <span class="card-number">09</span>
+                        <h3>Training & Handover</h3>
+                        <p>Owner and department lead training sessions. Video walkthroughs. Documentation of every system built. You own everything. We leave when it runs without us.</p>
+                        <span class="method-tag">Purpose: Earn</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <!-- ═══ SCOPE TABLE ═══ -->
+        <section class="reveal">
+            <div class="section-container">
+                <div class="section-label">// 02 — DELIVERY TIMELINE</div>
+                <h2 class="split-heading" data-split>What lands when</h2>
+                <p class="section-sub">Every deliverable has a Stage: when it enters progress, when it reaches done. No ambiguity about what's happening or when.</p>
+
+                <div style="overflow-x: auto; margin-top: 2rem;">
+                    <table class="scope-table">
+                        <thead>
+                            <tr>
+                                <th>Deliverable</th>
+                                <th>Month</th>
+                                <th>Stage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="item-name">Business diagnostic & audit</td>
+                                <td class="item-month">01</td>
+                                <td>Week 1 — foundation for every build</td>
+                            </tr>
+                            <tr>
+                                <td class="item-name">Workspace architecture (ClickUp)</td>
+                                <td class="item-month">01</td>
+                                <td>Departments, Tellers, Running Lanes</td>
+                            </tr>
+                            <tr>
+                                <td class="item-name">Company wiki + SOPs</td>
+                                <td class="item-month">01</td>
+                                <td>Every role documented, every process written</td>
+                            </tr>
+                            <tr>
+                                <td class="item-name">DEF agent deployment</td>
+                                <td class="item-month">01</td>
+                                <td>CEO agent + team manager agents live</td>
+                            </tr>
+                            <tr>
+                                <td class="item-name">WhatsApp delegation</td>
+                                <td class="item-month">01</td>
+                                <td>Tasks flow from Teller to team via WhatsApp</td>
+                            </tr>
+                            <tr>
+                                <td class="item-name">POS & sales integration</td>
+                                <td class="item-month">02</td>
+                                <td>Automatic sync, real-time dashboards</td>
+                            </tr>
+                            <tr>
+                                <td class="item-name">Bank reconciliation automation</td>
+                                <td class="item-month">02</td>
+                                <td>Daily automated, multi-currency capable</td>
+                            </tr>
+                            <tr>
+                                <td class="item-name">DEF Learning Loop activation</td>
+                                <td class="item-month">02</td>
+                                <td>Auto-generated SOPs from real outcomes</td>
+                            </tr>
+                            <tr>
+                                <td class="item-name">Operational dashboards</td>
+                                <td class="item-month">02</td>
+                                <td>Revenue, inventory, team KPIs — live</td>
+                            </tr>
+                            <tr>
+                                <td class="item-name">Owner & team lead training</td>
+                                <td class="item-month">03</td>
+                                <td>Hands-on sessions + video library</td>
+                            </tr>
+                            <tr>
+                                <td class="item-name">Autonomous optimization</td>
+                                <td class="item-month">03</td>
+                                <td>DEF handles routine delegation solo</td>
+                            </tr>
+                            <tr>
+                                <td class="item-name">Full handover + documentation</td>
+                                <td class="item-month">03</td>
+                                <td>You own everything. No dependencies.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <!-- ═══ PRICING ═══ -->
+        <section id="pricing" class="reveal">
+            <div class="section-container">
+                <div class="section-label">// 03 — PRICING</div>
+                <h2 class="split-heading" data-split>One price. Everything included.</h2>
+                <p class="section-sub">No hourly billing. No scope creep negotiations. One flat rate that covers your entire operational transformation from Teller to Execution.</p>
+
+                <div class="pricing-card">
+                    <span class="pricing-badge">Full Operational Build</span>
+                    <div class="pricing-amount"><span class="currency">$</span>2,500<span class="period"> /month</span></div>
+                    <p class="pricing-term"><strong>3-month minimum</strong> — total engagement: $7,500</p>
+
+                    <ul class="pricing-includes">
+                        <li>
+                            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
+                            Full workspace architecture (ClickUp)
+                        </li>
+                        <li>
+                            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
+                            Company wiki + all department SOPs
+                        </li>
+                        <li>
+                            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
+                            n8n automations (POS, banking, inventory, reporting)
+                        </li>
+                        <li>
+                            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
+                            DEF AI agent deployment (CEO + managers)
+                        </li>
+                        <li>
+                            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
+                            WhatsApp operations channel
+                        </li>
+                        <li>
+                            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
+                            Real-time operational dashboards
+                        </li>
+                        <li>
+                            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
+                            Learning Loop activation (self-writing SOPs)
+                        </li>
+                        <li>
+                            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
+                            Owner & team lead training + handover
+                        </li>
+                        <li>
+                            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
+                            Full documentation — you own everything
+                        </li>
+                    </ul>
+
+                    <div class="pricing-cta">
+                        <div class="magnetic-wrap">
+                            <a href="https://wa.me/50237408644?text=Hola%2C%20me%20interesa%20el%20servicio%20de%20arquitectura%20operativa" target="_blank" rel="noopener" class="btn-primary">Start your build →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="not-included reveal">
+                    <h3>Not included in the base engagement</h3>
+                    <ul>
+                        <li><span class="x-mark">x</span> Custom software development (web apps, mobile apps)</li>
+                        <li><span class="x-mark">x</span> Graphic design, branding, or marketing</li>
+                        <li><span class="x-mark">x</span> Hardware, POS terminals, or physical infrastructure</li>
+                        <li><span class="x-mark">x</span> Third-party software subscriptions (ClickUp, n8n, Twilio)</li>
+                        <li><span class="x-mark">x</span> Ongoing retainer after handover (available separately)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <!-- ═══ FAQ ═══ -->
+        <section id="faq" class="reveal">
+            <div class="container-narrow">
+                <div class="section-label">// 04 — FAQ</div>
+                <h2 class="split-heading" data-split>Questions before your build</h2>
+
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            What kind of businesses is this for?
+                            <span class="faq-icon"><span></span><span></span></span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                Human-operated businesses where tasks, teams, and daily operations depend on coordination — not just code. Hotels, restaurants, retail, production, distribution. If your team currently runs on WhatsApp messages and memory, this is for you. Every item enters a <strong>Teller</strong>, gets classified by <strong>Purpose</strong>, and flows through <strong>Stages</strong> and <strong>States</strong> until it reaches <strong>Execution</strong>.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            What is DEF?
+                            <span class="faq-icon"><span></span><span></span></span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                DEF is our AI engine — the technology that powers the Flowstate Method inside your operation. It's a system of AI agents (CEO agent, manager agents, employee routing) that receives tasks via WhatsApp, classifies them through the <strong>Teller</strong>, delegates to the right person, tracks outcomes, and writes SOPs from real results. <strong>Self-updating operational systems for human-operated businesses.</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            What does the 90-day engagement look like?
+                            <span class="faq-icon"><span></span><span></span></span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                <strong>Month 1:</strong> Business diagnostic, workspace architecture, wiki, SOPs, DEF agent deployment, WhatsApp integration. Your <strong>Teller</strong> is live.<br><br>
+                                <strong>Month 2:</strong> POS/banking integrations, dashboards, Learning Loop activation. DEF starts writing SOPs from real outcomes.<br><br>
+                                <strong>Month 3:</strong> Training, autonomous optimization, full handover. DEF handles routine delegation. Your operation <strong>improves while you sleep</strong>.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            Do we need to learn new software?
+                            <span class="faq-icon"><span></span><span></span></span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                Your team uses <strong>WhatsApp</strong> — that's it. Tasks arrive in the <strong>State</strong> they need (Flow, Follow Up, Waiting). They respond when done. DEF moves the <strong>Stage</strong> to Done. Owners and managers use ClickUp dashboards, but we handle all setup and training. Zero learning curve for your floor team.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            What happens after the 3 months?
+                            <span class="faq-icon"><span></span><span></span></span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                You own everything. Workspaces, automations, SOPs, dashboards, DEF agents — all yours. No vendor lock-in. No monthly dependency. If you want continued support or new builds, we offer a retainer. But the system is designed to <strong>run without us</strong>. That's the whole point.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            What does "self-updating" actually mean?
+                            <span class="faq-icon"><span></span><span></span></span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                When a task reaches <strong>Execution</strong>, DEF doesn't just mark it done — it records the outcome. If the same type of problem gets solved the same way three times, DEF's Wiki Master writes the SOP automatically. If outcomes degrade, it flags the bottleneck. <strong>The system learns from every completed task.</strong> That's the Learning Loop.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            Can we start with a smaller scope?
+                            <span class="faq-icon"><span></span><span></span></span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                We start every engagement with a <strong>free diagnostic</strong>. We look at your operation, identify where items are falling through cracks (no <strong>Teller</strong>), where visibility is missing (no <strong>Stage</strong> or <strong>State</strong>), and where the same problems recur (no <strong>Learning Loop</strong>). From there, we scope your build. If you only need workspace + wiki without AI agents, we adjust. But the method stays the same.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            Where are you based? Do you work remotely?
+                            <span class="faq-icon"><span></span><span></span></span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                Based in <strong>Lake Atitlan, Guatemala</strong> — but we operate globally. Most of our client work is remote. For local hospitality businesses, we do on-site visits during the diagnostic and training phases. The systems we build work anywhere.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ CTA ═══ -->
+        <section id="start" class="cta-section reveal">
+            <div class="section-container">
+                <h2 class="split-heading" data-split>Send a message. It enters our Teller.</h2>
+                <p class="section-sub">We classify, we diagnose, we scope your build. No commitment, no consulting fees. If we're a fit, we install DEF and your operation starts learning.</p>
+                <div class="magnetic-wrap">
+                    <a href="https://wa.me/50237408644?text=Hola%2C%20me%20interesa%20una%20diagn%C3%B3stica%20operativa%20para%20mi%20negocio" target="_blank" rel="noopener" class="btn-primary">Message us on WhatsApp →</a>
+                </div>
+                <a href="mailto:info@flowstate.help" class="btn-secondary">Or email info@flowstate.help</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        &copy; 2026 Flowstate Technologies · Guatemala · <a href="https://flowstate.help">flowstate.help</a> · Precision in Motion.
+    </footer>
+
+    <a href="https://wa.me/50237408644?text=Hola%2C%20me%20interesa%20una%20diagn%C3%B3stica%20operativa%20para%20mi%20negocio" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Chat on WhatsApp">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+
+    <script>
+    (function() {
+        'use strict';
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+
+        // ─── HEADER SCROLL ───
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => { header.classList.toggle('scrolled', window.scrollY > 50); }, { passive: true });
+
+        // ─── HAMBURGER ───
+        const hamburger = document.querySelector('.hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        hamburger.addEventListener('click', () => {
+            const isOpen = mobileMenu.classList.toggle('open');
+            hamburger.classList.toggle('active');
+            hamburger.setAttribute('aria-expanded', isOpen);
+            document.body.style.overflow = isOpen ? 'hidden' : '';
+        });
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => { mobileMenu.classList.remove('open'); hamburger.classList.remove('active'); hamburger.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; });
+        });
+
+        // ─── SCROLL REVEAL ───
+        if (!prefersReducedMotion) {
+            const revealObs = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+            document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+        } else { document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible')); }
+
+        // ─── TEXT SPLIT ───
+        document.querySelectorAll('[data-split]').forEach(heading => {
+            const html = heading.innerHTML;
+            heading.innerHTML = html.split(/(<br\s*\/?>)/gi).map(w => {
+                if (w.match(/<br\s*\/?>/i)) return w;
+                return w.split(/\s+/).filter(Boolean).map((word, i) => `<span class="split-word" style="transition-delay:${i * 0.05}s">${word}</span>`).join(' ');
+            }).join('');
+            if (!prefersReducedMotion) {
+                const obs = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) heading.classList.add('animate'); }); }, { threshold: 0.3 });
+                obs.observe(heading);
+            } else { heading.classList.add('animate'); }
+        });
+
+        // ─── FAQ ACCORDION ───
+        document.querySelectorAll('.faq-question').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const item = btn.closest('.faq-item');
+                const isOpen = item.classList.contains('open');
+
+                // Close all
+                document.querySelectorAll('.faq-item.open').forEach(openItem => {
+                    openItem.classList.remove('open');
+                    openItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+                });
+
+                // Toggle current
+                if (!isOpen) {
+                    item.classList.add('open');
+                    btn.setAttribute('aria-expanded', 'true');
+                }
+            });
+        });
+
+        // ─── MAGNETIC BUTTONS ───
+        if (!isTouchDevice && !prefersReducedMotion) {
+            document.querySelectorAll('.magnetic-wrap').forEach(wrap => {
+                const btn = wrap.querySelector('a, button') || wrap;
+                wrap.addEventListener('mousemove', (e) => {
+                    const r = wrap.getBoundingClientRect();
+                    const x = e.clientX - r.left - r.width / 2, y = e.clientY - r.top - r.height / 2;
+                    const d = Math.sqrt(x * x + y * y);
+                    if (d < 100) { const s = 1 - d / 100; btn.style.transform = `translate(${x * s * 0.3}px, ${y * s * 0.3}px)`; }
+                });
+                wrap.addEventListener('mouseleave', () => {
+                    btn.style.transform = 'translate(0, 0)';
+                    btn.style.transition = 'transform 0.4s var(--ease-spring)';
+                    setTimeout(() => { btn.style.transition = ''; }, 400);
+                });
+            });
+        }
+    })();
+    </script>
+</body>
+</html>
