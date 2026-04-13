@@ -9,12 +9,35 @@
     <meta property="og:description" content="DEF — Directed Execution Flows. Self-optimizing execution systems that see, delegate, and evolve. Human contact with AI efficiency.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://flowstate.help">
-    <meta property="og:image" content="https://flowstate.help/og-image.svg">
+    <meta property="og:image" content="https://flowstate.help/og-image.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Flowstate Technologies — Operational Omnipresence">
     <meta name="twitter:description" content="DEF — Directed Execution Flows. Self-optimizing execution systems for hospitality teams.">
-    <meta name="twitter:image" content="https://flowstate.help/og-image.svg">
+    <meta name="twitter:image" content="https://flowstate.help/og-image.png">
+    <link rel="canonical" href="https://flowstate.help/">
     <script src="/config.js"></script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Flowstate Technologies",
+        "url": "https://flowstate.help",
+        "logo": "https://flowstate.help/og-image.png",
+        "description": "Operational architecture for hospitality teams. Self-optimizing execution systems powered by DEF — Directed Execution Flows.",
+        "founder": { "@type": "Person", "name": "Alejandro Eva" },
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Lake Atitlán",
+            "addressCountry": "GT"
+        },
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+502-3740-8644",
+            "contactType": "sales",
+            "availableLanguage": ["English", "Spanish"]
+        }
+    }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -307,6 +330,15 @@
         @media (max-width: 1024px) { .portfolio-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 768px) { .portfolio-grid { grid-template-columns: 1fr; } }
 
+        /* FOUNDER */
+        .founder-section { padding: clamp(24px, 3.5vw, 48px) 0; }
+        .founder-card { display: flex; align-items: center; gap: 2rem; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px; padding: clamp(1.5rem, 2.5vw, 2.5rem); max-width: 680px; }
+        .founder-avatar { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, var(--signal), var(--purple)); display: flex; align-items: center; justify-content: center; font-family: var(--font-primary); font-weight: 900; font-size: 1.3rem; color: var(--void); flex-shrink: 0; }
+        .founder-info h3 { font-size: 1.15rem; margin-bottom: 0.25rem; }
+        .founder-info span { font-family: var(--font-mono); font-size: 0.75rem; color: var(--signal); text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 0.75rem; }
+        .founder-info p { font-size: 0.88rem; color: var(--steel); line-height: 1.6; }
+        @media (max-width: 768px) { .founder-card { flex-direction: column; text-align: center; } }
+
         /* CTA */
         .cta-section { text-align: center; padding: clamp(32px, 5vw, 64px) 0; }
         .cta-section h2 { margin-bottom: 1.5rem; }
@@ -580,6 +612,20 @@
                         <h3>Yoad Trading</h3>
                         <span class="portfolio-tag">Futures Trading</span>
                         <p>International</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ FOUNDER ═══ -->
+        <section class="founder-section reveal">
+            <div class="section-container">
+                <div class="founder-card reveal-child">
+                    <div class="founder-avatar">AE</div>
+                    <div class="founder-info">
+                        <h3>Alejandro Eva</h3>
+                        <span>Founder & CEO</span>
+                        <p>Every client system is engineered personally — from diagnostic to deployment. Based in Lake Atitlan, Guatemala, working with hospitality teams across the region.</p>
                     </div>
                 </div>
             </div>

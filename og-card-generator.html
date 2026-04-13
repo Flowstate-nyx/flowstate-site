@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OG Image Generator — Flowstate</title>
+    <style>
+        body { background: #111; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; font-family: sans-serif; color: #fff; gap: 1.5rem; }
+        canvas { border: 1px solid #333; max-width: 90vw; height: auto; }
+        a { color: #0066FF; font-size: 1.1rem; text-decoration: none; padding: 12px 28px; border: 1px solid #0066FF; border-radius: 100px; transition: all 0.2s; }
+        a:hover { background: #0066FF; color: #000; }
+        p { color: #666; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+    <p>Loading fonts...</p>
+    <canvas id="c" width="1200" height="630"></canvas>
+    <a id="dl" download="og-image.png">Download og-image.png</a>
+    <p>Place the downloaded file in the flowstate-site/ folder</p>
+
+    <script>
+    (async function() {
+        const inter900 = new FontFace('Inter', 'url(https://fonts.gstatic.com/s/inter/v18/UcC73FwrK3iLTeHuS_fjbvMwCp50KnMa0ZL7SUc.woff2)', { weight: '900' });
+        const inter500 = new FontFace('Inter', 'url(https://fonts.gstatic.com/s/inter/v18/UcC73FwrK3iLTeHuS_fjbvMwCp50KnMa25L7SUc.woff2)', { weight: '500' });
+        const inter400 = new FontFace('Inter', 'url(https://fonts.gstatic.com/s/inter/v18/UcC73FwrK3iLTeHuS_fjbvMwCp50KnMa2JL7SUc.woff2)', { weight: '400' });
+
+        await Promise.all([inter900.load(), inter500.load(), inter400.load()]);
+        document.fonts.add(inter900);
+        document.fonts.add(inter500);
+        document.fonts.add(inter400);
+
+        const c = document.getElementById('c');
+        const ctx = c.getContext('2d');
+
+        // Background
+        ctx.fillStyle = '#0A0A0F';
+        ctx.fillRect(0, 0, 1200, 630);
+
+        // Subtle dot grid
+        ctx.fillStyle = 'rgba(255,255,255,0.04)';
+        for (let x = 40; x < 1200; x += 28) {
+            for (let y = 40; y < 630; y += 28) {
+                ctx.beginPath();
+                ctx.arc(x, y, 0.8, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        // Top gradient bar
+        const grad = ctx.createLinearGradient(0, 0, 1200, 0);
+        grad.addColorStop(0, '#0066FF');
+        grad.addColorStop(1, '#7B2FBE');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, 1200, 4);
+
+        // Accent bar
+        const grad2 = ctx.createLinearGradient(80, 0, 160, 0);
+        grad2.addColorStop(0, '#0066FF');
+        grad2.addColorStop(1, '#7B2FBE');
+        ctx.fillStyle = grad2;
+        ctx.roundRect(80, 470, 80, 3, 1.5);
+        ctx.fill();
+
+        // "Flowstate"
+        ctx.font = '900 72px Inter';
+        ctx.fillStyle = '#F5F5F7';
+        ctx.fillText('Flowstate', 100, 255);
+
+        // Subtitle
+        ctx.font = '500 28px Inter';
+        ctx.fillStyle = '#8A8A9A';
+        ctx.fillText('Operational Architecture for Hospitality Teams', 100, 330);
+
+        // DEF label
+        ctx.font = '400 15px monospace';
+        ctx.fillStyle = '#0066FF';
+        ctx.fillText('DEF \u2014 DIRECTED EXECUTION FLOWS', 100, 410);
+
+        // URL
+        ctx.font = '400 18px Inter';
+        ctx.fillStyle = '#7a7a8a';
+        ctx.fillText('flowstate.help', 100, 560);
+
+        // Download link
+        document.getElementById('dl').href = c.toDataURL('image/png');
+        document.querySelector('p').textContent = 'Ready \u2014 click below to download';
+    })();
+    </script>
+</body>
+</html>
