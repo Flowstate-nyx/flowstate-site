@@ -39,6 +39,14 @@ function resolveFile(urlPath) {
 }
 
 const server = http.createServer((req, res) => {
+    // HTTPS redirect — Railway terminates SSL at edge, forwards x-forwarded-proto
+    if (req.headers['x-forwarded-proto'] === 'http') {
+        const host = req.headers.host || 'flowstate.help';
+        res.writeHead(301, { 'Location': `https://${host}${req.url}` });
+        res.end();
+        return;
+    }
+
     const urlPath = req.url.split('?')[0].split('#')[0];
 
     // Security: prevent directory traversal

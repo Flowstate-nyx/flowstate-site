@@ -293,58 +293,6 @@
             .mind-map-mobile { display: flex; }
         }
 
-        /* ═══ PRICING ═══ */
-        .pricing-card {
-            background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 20px;
-            padding: clamp(2rem, 4vw, 3rem); position: relative; overflow: hidden;
-            max-width: 680px; margin: 3rem auto 0;
-        }
-        .pricing-card::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-            background: linear-gradient(90deg, var(--signal), var(--purple));
-        }
-        .pricing-badge {
-            display: inline-block; font-family: var(--font-mono); font-size: 0.65rem; font-weight: 500;
-            text-transform: uppercase; letter-spacing: 0.12em; color: var(--signal);
-            background: var(--signal-dim); border: 1px solid rgba(0,102,255,0.15);
-            padding: 4px 12px; border-radius: 100px; margin-bottom: 1.5rem;
-        }
-        .pricing-amount {
-            font-size: clamp(3rem, 6vw, 4rem); font-weight: 900; color: var(--white);
-            letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.25rem;
-        }
-        .pricing-amount .currency { font-size: 0.5em; color: var(--signal); vertical-align: super; }
-        .pricing-amount .period { font-size: 0.3em; color: var(--steel); font-weight: 500; letter-spacing: 0; }
-        .pricing-term { font-size: 0.9rem; color: var(--steel); margin-bottom: 2rem; }
-        .pricing-term strong { color: var(--white); }
-
-        .pricing-includes { list-style: none; display: grid; gap: 0.75rem; margin-bottom: 2rem; }
-        .pricing-includes li {
-            display: flex; align-items: flex-start; gap: 0.75rem;
-            font-size: 0.9rem; color: var(--steel); line-height: 1.5;
-        }
-        .pricing-includes li .check {
-            width: 20px; height: 20px; min-width: 20px; border-radius: 50%;
-            background: rgba(0,102,255,0.1); border: 1px solid rgba(0,102,255,0.2);
-            display: flex; align-items: center; justify-content: center; margin-top: 2px;
-        }
-        .pricing-includes li .check svg { width: 12px; height: 12px; color: var(--signal); }
-
-        .pricing-cta { text-align: center; margin-top: 2rem; }
-
-        /* ═══ NOT INCLUDED ═══ */
-        .not-included {
-            background: rgba(255,255,255,0.015); border: 1px solid var(--glass-border); border-radius: 16px;
-            padding: clamp(1.5rem, 2.5vw, 2rem); margin-top: 3rem;
-        }
-        .not-included h3 { font-size: 0.95rem; margin-bottom: 1rem; color: var(--steel); }
-        .not-included ul { list-style: none; display: grid; gap: 0.5rem; }
-        .not-included li {
-            display: flex; align-items: center; gap: 0.75rem;
-            font-size: 0.85rem; color: var(--steel-dark);
-        }
-        .not-included li .x-mark { color: #ff4444; font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; }
-
         /* ═══ FAQ ACCORDION ═══ */
         .faq-list { display: grid; gap: 0.75rem; margin-top: 2.5rem; }
         .faq-item {
@@ -415,7 +363,7 @@
         <nav>
             <a href="/">Home</a>
             <a href="#deliverables">Deliverables</a>
-            <a href="#pricing">Pricing</a>
+            <a href="#faq">FAQ</a>
             <a href="/contact">Contact</a>
             <a href="https://wa.me/50237408644" target="_blank" rel="noopener" class="nav-cta magnetic-wrap">Get Started</a>
         </nav>
@@ -602,83 +550,10 @@
 
         <hr class="divider">
 
-        <!-- ═══ PRICING ═══ -->
-        <section id="pricing" class="reveal">
-            <div class="section-container">
-                <div class="section-label">// 04 &mdash; PRICING</div>
-                <h2 class="split-heading" data-split>One price. Everything included.</h2>
-                <p class="section-sub">No hourly billing. No scope creep negotiations. One flat rate that covers your entire operational transformation &mdash; workspace, wiki, automations, AI agents, dashboards, training.</p>
-
-                <div class="pricing-card">
-                    <span class="pricing-badge">Full Operational Build</span>
-                    <div class="pricing-amount"><span class="currency">$</span>2,500<span class="period"> /month</span></div>
-                    <p class="pricing-term"><strong>3-month minimum</strong> &mdash; total engagement: $7,500</p>
-
-                    <ul class="pricing-includes">
-                        <li>
-                            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
-                            Full workspace architecture per department
-                        </li>
-                        <li>
-                            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
-                            Company wiki + all department SOPs
-                        </li>
-                        <li>
-                            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
-                            Automations (POS, banking, inventory, reporting)
-                        </li>
-                        <li>
-                            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
-                            DEF agent deployment (AI delegation + routing)
-                        </li>
-                        <li>
-                            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
-                            WhatsApp operations channel
-                        </li>
-                        <li>
-                            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
-                            Real-time operational dashboards
-                        </li>
-                        <li>
-                            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
-                            Learning Loop (self-writing procedures)
-                        </li>
-                        <li>
-                            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
-                            Owner &amp; team lead training + handover
-                        </li>
-                        <li>
-                            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
-                            Full documentation &mdash; you own everything
-                        </li>
-                    </ul>
-
-                    <div class="pricing-cta">
-                        <div class="magnetic-wrap">
-                            <a href="https://wa.me/50237408644?text=Hola%2C%20me%20interesa%20el%20servicio%20de%20arquitectura%20operativa" target="_blank" rel="noopener" class="btn-primary">Start your build &rarr;</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="not-included reveal">
-                    <h3>Not included in the base engagement</h3>
-                    <ul>
-                        <li><span class="x-mark">x</span> Custom software development (web apps, mobile apps)</li>
-                        <li><span class="x-mark">x</span> Graphic design, branding, or marketing</li>
-                        <li><span class="x-mark">x</span> Hardware, POS terminals, or physical infrastructure</li>
-                        <li><span class="x-mark">x</span> Third-party software subscriptions</li>
-                        <li><span class="x-mark">x</span> Ongoing retainer after handover (available separately)</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <hr class="divider">
-
         <!-- ═══ FAQ ═══ -->
         <section id="faq" class="reveal">
             <div class="container-narrow">
-                <div class="section-label">// 05 &mdash; FAQ</div>
+                <div class="section-label">// 04 &mdash; FAQ</div>
                 <h2 class="split-heading" data-split>Questions before your build</h2>
 
                 <div class="faq-list">
