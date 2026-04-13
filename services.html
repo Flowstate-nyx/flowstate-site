@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Services — Flowstate Technologies</title>
-    <meta name="description" content="Operational architecture for hospitality businesses. $2,500/mo — workspace, SOPs, automations, AI delegation. 90-day delivery powered by DEF.">
+    <meta name="description" content="DEF — Directed Execution Flows. AI-powered operational architecture for hospitality businesses. $2,500/mo — 90-day delivery. Your operation learns, delegates, and evolves.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -41,8 +41,9 @@
                 transition-duration: 0.01ms !important;
                 scroll-behavior: auto !important;
             }
-            .noise-overlay { display: none !important; }
+            .noise-overlay, #particleCanvas { display: none !important; }
             .reveal { opacity: 1 !important; transform: none !important; }
+            .split-word { opacity: 1 !important; transform: none !important; }
         }
 
         a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
@@ -60,6 +61,17 @@
             overflow-x: hidden;
             line-height: 1.6;
         }
+
+        #glCanvas {
+            position: fixed; inset: 0; width: 100%; height: 100%;
+            z-index: 0; pointer-events: none;
+        }
+
+        #particleCanvas {
+            position: fixed; inset: 0; width: 100%; height: 100%;
+            z-index: 2; pointer-events: none;
+        }
+        @media (pointer: coarse) { #particleCanvas { display: none; } }
 
         .noise-overlay {
             position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.035;
@@ -154,7 +166,7 @@
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
         /* GLASS CARDS */
-        .glass-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px; padding: clamp(1.5rem, 2.5vw, 2rem); transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, transform 0.15s ease; will-change: transform; }
+        .glass-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px; padding: clamp(1.5rem, 2.5vw, 2rem); transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, transform 0.15s ease; will-change: transform; transform-style: preserve-3d; }
         .glass-card:hover { background: var(--glass-hover-bg); border-color: var(--glass-hover-border); box-shadow: 0 0 30px rgba(0,102,255,0.06); }
         .glass-card p { font-size: 0.92rem; line-height: 1.65; color: var(--steel); }
         .glass-card .card-icon { width: 28px; height: 28px; color: var(--signal); margin-bottom: 1rem; }
@@ -172,6 +184,7 @@
         .reveal.visible .reveal-child:nth-child(6) { transition-delay: 0.3s; }
         .reveal.visible .reveal-child:nth-child(7) { transition-delay: 0.35s; }
         .reveal.visible .reveal-child:nth-child(8) { transition-delay: 0.4s; }
+        .reveal.visible .reveal-child:nth-child(9) { transition-delay: 0.45s; }
 
         .split-heading .split-word { display: inline-block; opacity: 0; transform: translateY(100%); transition: opacity 0.5s var(--ease-out-expo), transform 0.5s var(--ease-out-expo); }
         .split-heading.animate .split-word { opacity: 1; transform: translateY(0); }
@@ -181,6 +194,104 @@
         .btn-primary:hover { background: var(--signal-hover); box-shadow: 0 0 40px rgba(0,102,255,0.25); }
         .btn-secondary { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-primary); font-size: 0.95rem; font-weight: 500; color: var(--steel); text-decoration: none; padding: 12px 0; transition: color 0.25s ease; }
         .btn-secondary:hover { color: var(--white); }
+
+        /* ═══ DELIVERABLES GRID ═══ */
+        .deliverables-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+        @media (max-width: 1024px) { .deliverables-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { .deliverables-grid { grid-template-columns: 1fr; } }
+
+        .deliverable-card {
+            background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px;
+            padding: clamp(1.25rem, 2vw, 1.75rem); transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, transform 0.15s ease;
+            will-change: transform; transform-style: preserve-3d;
+        }
+        .deliverable-card:hover { background: var(--glass-hover-bg); border-color: var(--glass-hover-border); box-shadow: 0 0 30px rgba(0,102,255,0.06); }
+        .deliverable-card .card-number {
+            font-family: var(--font-mono); font-size: 0.65rem; font-weight: 500;
+            color: var(--signal); letter-spacing: 0.1em; margin-bottom: 0.75rem; display: block;
+        }
+        .deliverable-card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+        .deliverable-card p { font-size: 0.82rem; line-height: 1.6; color: var(--steel); }
+        .deliverable-card .method-tag {
+            display: inline-block; font-family: var(--font-mono); font-size: 0.6rem;
+            padding: 2px 8px; border-radius: 100px; margin-top: 0.65rem;
+            background: rgba(123,47,190,0.08); border: 1px solid rgba(123,47,190,0.15); color: var(--purple);
+        }
+
+        /* ═══ COUNTER STRIP ═══ */
+        .counter-strip { padding: clamp(20px, 2.5vw, 36px) 0; border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); }
+        .counter-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; text-align: center; }
+        .counter-item { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+        .counter-number { font-family: var(--font-primary); font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; color: var(--white); letter-spacing: -0.04em; line-height: 1; }
+        .counter-number .counter-suffix { font-size: 0.7em; color: var(--signal); }
+        .counter-label { font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--steel); }
+        @media (max-width: 768px) { .counter-grid { grid-template-columns: 1fr; gap: 3rem; } }
+
+        /* ═══ TIMELINE ═══ */
+        .timeline { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 3rem; position: relative; }
+        .timeline::before { content: ''; position: absolute; top: 28px; left: 0; right: 0; height: 2px; background: var(--glass-border); }
+        .timeline-progress { position: absolute; top: 28px; left: 0; height: 2px; background: linear-gradient(90deg, var(--signal), var(--purple)); width: 0%; transition: width 0.1s linear; }
+        .timeline-month { padding-top: 3.5rem; position: relative; opacity: 0.3; transform: translateY(10px); transition: opacity 0.6s var(--ease-out-expo), transform 0.6s var(--ease-out-expo); }
+        .timeline-month.active { opacity: 1; transform: translateY(0); }
+        .timeline-month::before { content: ''; position: absolute; top: 22px; left: 0; width: 14px; height: 14px; border-radius: 50%; background: var(--void); border: 2px solid var(--glass-border); transition: border-color 0.4s ease, box-shadow 0.4s ease; }
+        .timeline-month.active::before { border-color: var(--signal); box-shadow: 0 0 12px var(--signal-glow); }
+        .month-number { font-family: var(--font-mono); font-size: 0.7rem; font-weight: 500; color: var(--signal); letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+        .month-title { font-size: 1.3rem; font-weight: 700; color: var(--white); margin-bottom: 0.75rem; }
+        .month-desc { font-size: 0.85rem; color: var(--steel); display: flex; flex-direction: column; gap: 0.4rem; padding-right: 1.5rem; }
+        .month-desc span { display: block; padding-left: 1rem; position: relative; }
+        .month-desc span::before { content: '\2192'; position: absolute; left: 0; color: var(--signal); font-size: 0.8rem; }
+        @media (max-width: 768px) {
+            .timeline { grid-template-columns: 1fr; gap: 2rem; }
+            .timeline::before, .timeline-progress { display: none; }
+            .timeline-month { padding-top: 0; padding-left: 2rem; opacity: 1; transform: none; }
+            .timeline-month::before { top: 4px; }
+        }
+
+        /* ═══ MIND MAP ═══ */
+        .mind-map-wrap { position: relative; margin-top: 3rem; }
+        .mind-map-desktop { position: relative; width: 100%; aspect-ratio: 16 / 10; max-width: 820px; margin: 0 auto; }
+        #mindMapCanvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
+        .mn { position: absolute; text-align: center; transform: translate(-50%, -50%); z-index: 2; cursor: default; transition: transform 0.4s var(--ease-out-expo); }
+        .mn:hover { transform: translate(-50%, -50%) scale(1.08); }
+        .mn-circle { width: 110px; height: 110px; border-radius: 50%; background: rgba(10,10,20,0.92); border: 2.5px solid rgba(0,102,255,0.3); display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; transition: border-color 0.5s ease, box-shadow 0.5s ease, background 0.5s ease; box-shadow: 0 0 20px rgba(0,102,255,0.1); animation: nodeHeartbeat 2.8s ease-in-out infinite; }
+        .mn:hover .mn-circle { border-color: var(--signal); box-shadow: 0 0 45px var(--signal-glow); background: rgba(0,102,255,0.12); }
+        @keyframes nodeHeartbeat {
+            0%, 100% { box-shadow: 0 0 20px rgba(0,102,255,0.1), 0 0 0 0 rgba(0,102,255,0.18); }
+            50% { box-shadow: 0 0 35px rgba(0,102,255,0.2), 0 0 0 14px rgba(0,102,255,0); }
+        }
+        .mn-center { left: 50%; top: 50%; }
+        .mn-center .mn-circle { width: 88px; height: 88px; border-color: rgba(0,102,255,0.45); background: rgba(0,102,255,0.06); animation: centerHeartbeat 3.2s ease-in-out infinite; }
+        @keyframes centerHeartbeat {
+            0%, 100% { box-shadow: 0 0 25px rgba(0,102,255,0.15), 0 0 0 0 rgba(0,102,255,0.22); }
+            50% { box-shadow: 0 0 45px rgba(0,102,255,0.25), 0 0 0 22px rgba(0,102,255,0); }
+        }
+        .mn-center:hover .mn-circle { box-shadow: 0 0 55px var(--signal-glow); }
+        .mn-num { font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; color: var(--white); }
+        .mn-center .mn-num { font-size: 0.65rem; font-weight: 700; color: var(--signal); letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.3; }
+        .mn-title { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--signal); margin-bottom: 4px; }
+        .mn-desc { font-size: 0.72rem; color: var(--steel); line-height: 1.45; max-width: 155px; margin: 0 auto; opacity: 0.7; transition: opacity 0.4s ease; }
+        .mn:hover .mn-desc { opacity: 1; }
+        .mn-n1 .mn-circle { animation-delay: 0s; }
+        .mn-n2 .mn-circle { animation-delay: 0.56s; }
+        .mn-n3 .mn-circle { animation-delay: 1.12s; }
+        .mn-n4 .mn-circle { animation-delay: 1.68s; }
+        .mn-n5 .mn-circle { animation-delay: 2.24s; }
+        .mn-n1 { left: 50%; top: 8%; }
+        .mn-n2 { left: 85%; top: 36%; }
+        .mn-n3 { left: 72%; top: 84%; }
+        .mn-n4 { left: 28%; top: 84%; }
+        .mn-n5 { left: 15%; top: 36%; }
+
+        .mind-map-mobile { display: none; flex-direction: column; gap: 1rem; align-items: center; }
+        .mm-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 14px; padding: 1.25rem; width: 100%; max-width: 340px; text-align: center; transition: border-color 0.3s ease; }
+        .mm-card:hover { border-color: var(--glass-hover-border); }
+        .mm-card .mn-title { margin-bottom: 6px; }
+        .mm-card .mn-desc { opacity: 1; max-height: none; max-width: none; }
+
+        @media (max-width: 768px) {
+            .mind-map-desktop { display: none; }
+            .mind-map-mobile { display: flex; }
+        }
 
         /* ═══ PRICING ═══ */
         .pricing-card {
@@ -221,47 +332,18 @@
 
         .pricing-cta { text-align: center; margin-top: 2rem; }
 
-        /* ═══ DELIVERABLES GRID ═══ */
-        .deliverables-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
-        @media (max-width: 1024px) { .deliverables-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 768px) { .deliverables-grid { grid-template-columns: 1fr; } }
-
-        .deliverable-card {
-            background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px;
-            padding: clamp(1.25rem, 2vw, 1.75rem); transition: background 0.4s ease, border-color 0.4s ease;
+        /* ═══ NOT INCLUDED ═══ */
+        .not-included {
+            background: rgba(255,255,255,0.015); border: 1px solid var(--glass-border); border-radius: 16px;
+            padding: clamp(1.5rem, 2.5vw, 2rem); margin-top: 3rem;
         }
-        .deliverable-card:hover { background: var(--glass-hover-bg); border-color: var(--glass-hover-border); }
-        .deliverable-card .card-number {
-            font-family: var(--font-mono); font-size: 0.65rem; font-weight: 500;
-            color: var(--signal); letter-spacing: 0.1em; margin-bottom: 0.75rem; display: block;
+        .not-included h3 { font-size: 0.95rem; margin-bottom: 1rem; color: var(--steel); }
+        .not-included ul { list-style: none; display: grid; gap: 0.5rem; }
+        .not-included li {
+            display: flex; align-items: center; gap: 0.75rem;
+            font-size: 0.85rem; color: var(--steel-dark);
         }
-        .deliverable-card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
-        .deliverable-card p { font-size: 0.82rem; line-height: 1.6; color: var(--steel); }
-        .deliverable-card .method-tag {
-            display: inline-block; font-family: var(--font-mono); font-size: 0.6rem;
-            padding: 2px 8px; border-radius: 100px; margin-top: 0.65rem;
-            background: rgba(123,47,190,0.08); border: 1px solid rgba(123,47,190,0.15); color: var(--purple);
-        }
-
-        /* ═══ SCOPE TABLE ═══ */
-        .scope-table {
-            width: 100%; border-collapse: collapse; margin-top: 2rem;
-            font-size: 0.88rem;
-        }
-        .scope-table thead th {
-            font-family: var(--font-mono); font-size: 0.65rem; font-weight: 500;
-            text-transform: uppercase; letter-spacing: 0.12em; color: var(--signal);
-            text-align: left; padding: 1rem 1.25rem; border-bottom: 1px solid var(--glass-border);
-        }
-        .scope-table tbody td {
-            padding: 0.85rem 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.04);
-            color: var(--steel); vertical-align: top;
-        }
-        .scope-table tbody tr:hover td { background: rgba(255,255,255,0.015); }
-        .scope-table .item-name { color: var(--white); font-weight: 500; }
-        .scope-table .item-month {
-            font-family: var(--font-mono); font-size: 0.7rem; color: var(--signal);
-        }
+        .not-included li .x-mark { color: #ff4444; font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; }
 
         /* ═══ FAQ ACCORDION ═══ */
         .faq-list { display: grid; gap: 0.75rem; margin-top: 2.5rem; }
@@ -302,19 +384,6 @@
         }
         .faq-answer-inner strong { color: var(--white); font-weight: 600; }
 
-        /* ═══ NOT INCLUDED ═══ */
-        .not-included {
-            background: rgba(255,255,255,0.015); border: 1px solid var(--glass-border); border-radius: 16px;
-            padding: clamp(1.5rem, 2.5vw, 2rem); margin-top: 3rem;
-        }
-        .not-included h3 { font-size: 0.95rem; margin-bottom: 1rem; color: var(--steel); }
-        .not-included ul { list-style: none; display: grid; gap: 0.5rem; }
-        .not-included li {
-            display: flex; align-items: center; gap: 0.75rem;
-            font-size: 0.85rem; color: var(--steel-dark);
-        }
-        .not-included li .x-mark { color: #ff4444; font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; }
-
         /* ═══ CTA ═══ */
         .cta-section { text-align: center; padding: clamp(32px, 5vw, 64px) 0; }
         .cta-section h2 { margin-bottom: 1.5rem; }
@@ -329,6 +398,7 @@
         .whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 6px 30px rgba(37,211,102,0.4); }
         .whatsapp-float svg { width: 28px; height: 28px; fill: white; }
 
+        .tilt-container { perspective: 1000px; }
         .magnetic-wrap { display: inline-block; position: relative; }
 
         /* ═══ DIVIDER ═══ */
@@ -336,6 +406,8 @@
     </style>
 </head>
 <body>
+    <canvas id="glCanvas"></canvas>
+    <canvas id="particleCanvas"></canvas>
     <div class="noise-overlay" aria-hidden="true"></div>
 
     <header>
@@ -357,80 +429,128 @@
         <a href="#deliverables">Deliverables</a>
         <a href="#pricing">Pricing</a>
         <a href="/contact">Contact</a>
-        <a href="https://wa.me/50237408644" target="_blank" rel="noopener">Get Started →</a>
+        <a href="https://wa.me/50237408644" target="_blank" rel="noopener">Get Started &rarr;</a>
     </div>
 
     <main>
         <!-- ═══ HERO ═══ -->
         <section class="hero">
             <div class="section-container">
-                <div class="hero-label">// SERVICES · OPERATIONAL ARCHITECTURE</div>
+                <div class="hero-label">// DEF &mdash; DIRECTED EXECUTION FLOWS</div>
                 <h1 class="split-heading" data-split>Self-Optimizing<br>Execution Systems</h1>
-                <p class="hero-sub">One engagement. 90 days. Every task, every department, every daily operation — structured, automated, and visible. Your team stops guessing and starts executing. The system learns from real outcomes and gets better every week.</p>
+                <p class="hero-sub">One AI engine that captures every task, delegates to the right person, tracks outcomes, and writes the playbook from real results. Your team uses WhatsApp. DEF orchestrates everything underneath. 90 days to full operational autonomy.</p>
             </div>
         </section>
 
-        <!-- ═══ WHAT YOU GET ═══ -->
+        <!-- ═══ HOW DEF WORKS — MIND MAP ═══ -->
+        <section id="how-it-works" class="reveal">
+            <div class="section-container">
+                <div class="section-label">// 01 &mdash; THE ENGINE</div>
+                <h2 class="split-heading" data-split>Five forces. One continuous loop. Total operational clarity.</h2>
+                <p class="section-sub">DEF is a continuous intelligence loop. Every guest request, maintenance ticket, and shift task follows the same pathway &mdash; from raw signal to completed outcome to documented procedure. Here's how every task moves through the system.</p>
+
+                <div class="mind-map-wrap">
+                    <div class="mind-map-desktop">
+                        <canvas id="mindMapCanvas"></canvas>
+                        <div class="mn mn-center"><div class="mn-circle"><span class="mn-num">DEF<br>Engine</span></div></div>
+                        <div class="mn mn-n1"><div class="mn-circle"><span class="mn-num">01</span></div><div class="mn-title">Capture</div><div class="mn-desc">Every task enters one point. WhatsApp message, guest complaint, maintenance alert &mdash; DEF receives it before a human routes it.</div></div>
+                        <div class="mn mn-n2"><div class="mn-circle"><span class="mn-num">02</span></div><div class="mn-title">Classify</div><div class="mn-desc">AI identifies what it is. Guest-facing, kitchen, housekeeping, maintenance. Urgent or routine. The right category, instantly.</div></div>
+                        <div class="mn mn-n3"><div class="mn-circle"><span class="mn-num">03</span></div><div class="mn-title">Delegate</div><div class="mn-desc">Routed to the right person via WhatsApp. Not the manager &mdash; the team member who handles it. With the SOP attached.</div></div>
+                        <div class="mn mn-n4"><div class="mn-circle"><span class="mn-num">04</span></div><div class="mn-title">Track</div><div class="mn-desc">Every task has a visible position. Pending, in progress, done. The owner sees the full operation from one screen.</div></div>
+                        <div class="mn mn-n5"><div class="mn-circle"><span class="mn-num">05</span></div><div class="mn-title">Learn</div><div class="mn-desc">Same solution three times &rarr; automatic SOP. Quality drops &rarr; flagged bottleneck. Your operation writes its own playbook.</div></div>
+                    </div>
+                    <div class="mind-map-mobile">
+                        <div class="mm-card"><div class="mn-title">01 &mdash; Capture</div><div class="mn-desc">Every task enters one point. WhatsApp message, guest complaint, maintenance alert &mdash; DEF receives it before a human routes it.</div></div>
+                        <div class="mm-card"><div class="mn-title">02 &mdash; Classify</div><div class="mn-desc">AI identifies what it is. Guest-facing, kitchen, housekeeping, maintenance. Urgent or routine. The right category, instantly.</div></div>
+                        <div class="mm-card"><div class="mn-title">03 &mdash; Delegate</div><div class="mn-desc">Routed to the right person via WhatsApp. Not the manager &mdash; the team member who handles it. With the SOP attached.</div></div>
+                        <div class="mm-card"><div class="mn-title">04 &mdash; Track</div><div class="mn-desc">Every task has a visible position. Pending, in progress, done. The owner sees the full operation from one screen.</div></div>
+                        <div class="mm-card"><div class="mn-title">05 &mdash; Learn</div><div class="mn-desc">Same solution three times &rarr; automatic SOP. Quality drops &rarr; flagged bottleneck. Your operation writes its own playbook.</div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ COUNTER STRIP ═══ -->
+        <section class="counter-strip reveal">
+            <div class="section-container">
+                <div class="counter-grid">
+                    <div class="counter-item reveal-child">
+                        <div class="counter-number"><span class="counter" data-target="8">0</span></div>
+                        <div class="counter-label">Operations Engineered</div>
+                    </div>
+                    <div class="counter-item reveal-child">
+                        <div class="counter-number"><span class="counter" data-target="50">0</span><span class="counter-suffix">+</span></div>
+                        <div class="counter-label">Automations Deployed</div>
+                    </div>
+                    <div class="counter-item reveal-child">
+                        <div class="counter-number"><span class="counter" data-target="90">0</span><span class="counter-suffix">-Day</span></div>
+                        <div class="counter-label">Precision Delivery</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ DELIVERABLES ═══ -->
         <section id="deliverables" class="reveal">
             <div class="section-container">
-                <div class="section-label">// 01 — DELIVERABLES</div>
+                <div class="section-label">// 02 &mdash; DELIVERABLES</div>
                 <h2 class="split-heading" data-split>Everything your operation needs to run itself</h2>
-                <p class="section-sub">Nine deliverables. Each one solves a specific operational problem — from "nobody knows what to do today" to "reports take all morning." Here's what gets built in 90 days.</p>
+                <p class="section-sub">Nine deliverables. Each one solves a specific operational problem &mdash; from "nobody knows what to do today" to "reports take all morning." Here's what DEF builds in 90 days.</p>
 
                 <div class="deliverables-grid">
-                    <div class="deliverable-card reveal-child">
+                    <div class="deliverable-card tilt-container reveal-child">
                         <span class="card-number">01</span>
                         <h3>Workspace Architecture</h3>
-                        <p>Full ClickUp workspace per department. Front desk, housekeeping, kitchen, maintenance — each with its own task pipeline from pending to done. No task falls through the cracks.</p>
-                        <span class="method-tag">Teller + Stage</span>
+                        <p>Full operational workspace per department. Front desk, housekeeping, kitchen, maintenance &mdash; each with its own task pipeline from pending to done. No task falls through the cracks.</p>
+                        <span class="method-tag">Capture + Track</span>
                     </div>
-                    <div class="deliverable-card reveal-child">
+                    <div class="deliverable-card tilt-container reveal-child">
                         <span class="card-number">02</span>
                         <h3>Company Wiki</h3>
                         <p>Complete operational knowledge base. How to open the restaurant. How to handle a guest complaint. How to reconcile the register. Every procedure written, organized, and searchable.</p>
-                        <span class="method-tag">Execution</span>
+                        <span class="method-tag">Learn</span>
                     </div>
-                    <div class="deliverable-card reveal-child">
+                    <div class="deliverable-card tilt-container reveal-child">
                         <span class="card-number">03</span>
                         <h3>Department SOPs</h3>
                         <p>Step-by-step procedures for every recurring operation. From opening checklists to closing reconciliation. Clear enough for any new hire to follow on day one.</p>
-                        <span class="method-tag">Execution</span>
+                        <span class="method-tag">Learn</span>
                     </div>
-                    <div class="deliverable-card reveal-child">
+                    <div class="deliverable-card tilt-container reveal-child">
                         <span class="card-number">04</span>
-                        <h3>Automations & Integrations</h3>
+                        <h3>Automations &amp; Integrations</h3>
                         <p>Workflows connecting your POS, bank accounts, inventory, and reporting. Sales data flows in automatically. Daily reports generate themselves. Your managers stop chasing spreadsheets.</p>
-                        <span class="method-tag">State: Flow</span>
+                        <span class="method-tag">Track</span>
                     </div>
-                    <div class="deliverable-card reveal-child">
+                    <div class="deliverable-card tilt-container reveal-child">
                         <span class="card-number">05</span>
                         <h3>Operational Dashboards</h3>
                         <p>Real-time visibility into revenue, tasks, team performance, and inventory. Open your phone, see exactly where everything stands. No more "how are we doing?" meetings.</p>
-                        <span class="method-tag">Stage + State</span>
+                        <span class="method-tag">Track</span>
                     </div>
-                    <div class="deliverable-card reveal-child">
+                    <div class="deliverable-card tilt-container reveal-child">
                         <span class="card-number">06</span>
-                        <h3>AI Agent Deployment</h3>
-                        <p>An AI operations manager that receives tasks via WhatsApp, classifies what kind of work it is, and routes it to the right person. Delegation happens automatically — your team just executes.</p>
-                        <span class="method-tag">DEF Engine</span>
+                        <h3>DEF Agent Deployment</h3>
+                        <p>An AI operations manager that receives tasks via WhatsApp, classifies what kind of work it is, and routes it to the right person. Delegation happens automatically &mdash; your team just executes.</p>
+                        <span class="method-tag">Classify + Delegate</span>
                     </div>
-                    <div class="deliverable-card reveal-child">
+                    <div class="deliverable-card tilt-container reveal-child">
                         <span class="card-number">07</span>
                         <h3>WhatsApp Operations</h3>
-                        <p>Your team receives tasks on WhatsApp — the app they already use. They respond when done. The system updates automatically. No new software to learn. Zero training required for floor staff.</p>
-                        <span class="method-tag">State</span>
+                        <p>Your team receives tasks on WhatsApp &mdash; the app they already use. They respond when done. The system updates automatically. No new software to learn. Zero training required.</p>
+                        <span class="method-tag">Delegate</span>
                     </div>
-                    <div class="deliverable-card reveal-child">
+                    <div class="deliverable-card tilt-container reveal-child">
                         <span class="card-number">08</span>
                         <h3>Learning Loop</h3>
-                        <p>The system tracks every completed task. When the same problem gets solved the same way three times, it writes the procedure automatically. Your operation doesn't just run — it gets smarter every week.</p>
-                        <span class="method-tag">Learning Loop</span>
+                        <p>DEF tracks every completed task. Same problem solved the same way three times &rarr; automatic procedure. Quality drops &rarr; flagged bottleneck. Your operation gets smarter every week.</p>
+                        <span class="method-tag">Learn</span>
                     </div>
-                    <div class="deliverable-card reveal-child">
+                    <div class="deliverable-card tilt-container reveal-child">
                         <span class="card-number">09</span>
-                        <h3>Training & Handover</h3>
+                        <h3>Training &amp; Handover</h3>
                         <p>Owner and department lead training sessions. Video walkthroughs. Documentation of every system built. You own everything. We leave when it runs without us.</p>
-                        <span class="method-tag">Purpose: Earn</span>
+                        <span class="method-tag">Handover</span>
                     </div>
                 </div>
             </div>
@@ -438,85 +558,44 @@
 
         <hr class="divider">
 
-        <!-- ═══ SCOPE TABLE ═══ -->
-        <section class="reveal">
+        <!-- ═══ TIMELINE ═══ -->
+        <section id="timeline" class="reveal">
             <div class="section-container">
-                <div class="section-label">// 02 — DELIVERY TIMELINE</div>
-                <h2 class="split-heading" data-split>What lands when</h2>
-                <p class="section-sub">Every deliverable has a clear timeline. You know exactly what's being built and when it goes live. No ambiguity.</p>
-
-                <div style="overflow-x: auto; margin-top: 2rem;">
-                    <table class="scope-table">
-                        <thead>
-                            <tr>
-                                <th>Deliverable</th>
-                                <th>Month</th>
-                                <th>Stage</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="item-name">Business diagnostic & audit</td>
-                                <td class="item-month">01</td>
-                                <td>Week 1 — foundation for every build</td>
-                            </tr>
-                            <tr>
-                                <td class="item-name">Workspace architecture (ClickUp)</td>
-                                <td class="item-month">01</td>
-                                <td>Departments, Tellers, Running Lanes</td>
-                            </tr>
-                            <tr>
-                                <td class="item-name">Company wiki + SOPs</td>
-                                <td class="item-month">01</td>
-                                <td>Every role documented, every process written</td>
-                            </tr>
-                            <tr>
-                                <td class="item-name">DEF agent deployment</td>
-                                <td class="item-month">01</td>
-                                <td>CEO agent + team manager agents live</td>
-                            </tr>
-                            <tr>
-                                <td class="item-name">WhatsApp delegation</td>
-                                <td class="item-month">01</td>
-                                <td>Tasks flow from Teller to team via WhatsApp</td>
-                            </tr>
-                            <tr>
-                                <td class="item-name">POS & sales integration</td>
-                                <td class="item-month">02</td>
-                                <td>Automatic sync, real-time dashboards</td>
-                            </tr>
-                            <tr>
-                                <td class="item-name">Bank reconciliation automation</td>
-                                <td class="item-month">02</td>
-                                <td>Daily automated, multi-currency capable</td>
-                            </tr>
-                            <tr>
-                                <td class="item-name">DEF Learning Loop activation</td>
-                                <td class="item-month">02</td>
-                                <td>Auto-generated SOPs from real outcomes</td>
-                            </tr>
-                            <tr>
-                                <td class="item-name">Operational dashboards</td>
-                                <td class="item-month">02</td>
-                                <td>Revenue, inventory, team KPIs — live</td>
-                            </tr>
-                            <tr>
-                                <td class="item-name">Owner & team lead training</td>
-                                <td class="item-month">03</td>
-                                <td>Hands-on sessions + video library</td>
-                            </tr>
-                            <tr>
-                                <td class="item-name">Autonomous optimization</td>
-                                <td class="item-month">03</td>
-                                <td>DEF handles routine delegation solo</td>
-                            </tr>
-                            <tr>
-                                <td class="item-name">Full handover + documentation</td>
-                                <td class="item-month">03</td>
-                                <td>You own everything. No dependencies.</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="section-label">// 03 &mdash; THE SEQUENCE</div>
+                <h2 class="split-heading" data-split>90 days. Fragmented team &rarr; synchronized operation.</h2>
+                <p class="section-sub">One continuous engagement. By Day 90, every department has a capture point, every task is visible to the whole team, DEF routes work autonomously, and your operation writes its own procedures from real outcomes.</p>
+                <div class="timeline" id="timeline-scrub">
+                    <div class="timeline-progress" id="timeline-progress"></div>
+                    <div class="timeline-month" data-month="1">
+                        <div class="month-number">MONTH 01</div>
+                        <div class="month-title">Install the Nervous System</div>
+                        <div class="month-desc">
+                            <span>Business diagnostic &amp; operational audit</span>
+                            <span>Full workspace architecture per department</span>
+                            <span>Company wiki &mdash; every SOP documented</span>
+                            <span>DEF agents deployed + WhatsApp live</span>
+                        </div>
+                    </div>
+                    <div class="timeline-month" data-month="2">
+                        <div class="month-number">MONTH 02</div>
+                        <div class="month-title">Activate Intelligence</div>
+                        <div class="month-desc">
+                            <span>POS &amp; banking integrations (automatic sync)</span>
+                            <span>Real-time operational dashboards</span>
+                            <span>Learning Loop activated &mdash; outcomes tracked</span>
+                            <span>First self-generated SOPs materialize</span>
+                        </div>
+                    </div>
+                    <div class="timeline-month" data-month="3">
+                        <div class="month-number">MONTH 03</div>
+                        <div class="month-title">Reach Autonomy</div>
+                        <div class="month-desc">
+                            <span>Owner &amp; department lead training</span>
+                            <span>DEF handles routine delegation solo</span>
+                            <span>Procedures self-update from real outcomes</span>
+                            <span>Full handover &mdash; you own everything</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -526,19 +605,19 @@
         <!-- ═══ PRICING ═══ -->
         <section id="pricing" class="reveal">
             <div class="section-container">
-                <div class="section-label">// 03 — PRICING</div>
+                <div class="section-label">// 04 &mdash; PRICING</div>
                 <h2 class="split-heading" data-split>One price. Everything included.</h2>
-                <p class="section-sub">No hourly billing. No scope creep negotiations. One flat rate that covers your entire operational transformation — workspace, wiki, automations, AI, dashboards, training.</p>
+                <p class="section-sub">No hourly billing. No scope creep negotiations. One flat rate that covers your entire operational transformation &mdash; workspace, wiki, automations, AI agents, dashboards, training.</p>
 
                 <div class="pricing-card">
                     <span class="pricing-badge">Full Operational Build</span>
                     <div class="pricing-amount"><span class="currency">$</span>2,500<span class="period"> /month</span></div>
-                    <p class="pricing-term"><strong>3-month minimum</strong> — total engagement: $7,500</p>
+                    <p class="pricing-term"><strong>3-month minimum</strong> &mdash; total engagement: $7,500</p>
 
                     <ul class="pricing-includes">
                         <li>
                             <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
-                            Full workspace architecture (ClickUp)
+                            Full workspace architecture per department
                         </li>
                         <li>
                             <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
@@ -550,7 +629,7 @@
                         </li>
                         <li>
                             <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
-                            AI agent deployment (delegation + routing)
+                            DEF agent deployment (AI delegation + routing)
                         </li>
                         <li>
                             <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
@@ -566,17 +645,17 @@
                         </li>
                         <li>
                             <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
-                            Owner & team lead training + handover
+                            Owner &amp; team lead training + handover
                         </li>
                         <li>
                             <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
-                            Full documentation — you own everything
+                            Full documentation &mdash; you own everything
                         </li>
                     </ul>
 
                     <div class="pricing-cta">
                         <div class="magnetic-wrap">
-                            <a href="https://wa.me/50237408644?text=Hola%2C%20me%20interesa%20el%20servicio%20de%20arquitectura%20operativa" target="_blank" rel="noopener" class="btn-primary">Start your build →</a>
+                            <a href="https://wa.me/50237408644?text=Hola%2C%20me%20interesa%20el%20servicio%20de%20arquitectura%20operativa" target="_blank" rel="noopener" class="btn-primary">Start your build &rarr;</a>
                         </div>
                     </div>
                 </div>
@@ -587,7 +666,7 @@
                         <li><span class="x-mark">x</span> Custom software development (web apps, mobile apps)</li>
                         <li><span class="x-mark">x</span> Graphic design, branding, or marketing</li>
                         <li><span class="x-mark">x</span> Hardware, POS terminals, or physical infrastructure</li>
-                        <li><span class="x-mark">x</span> Third-party software subscriptions (ClickUp, n8n, Twilio)</li>
+                        <li><span class="x-mark">x</span> Third-party software subscriptions</li>
                         <li><span class="x-mark">x</span> Ongoing retainer after handover (available separately)</li>
                     </ul>
                 </div>
@@ -599,7 +678,7 @@
         <!-- ═══ FAQ ═══ -->
         <section id="faq" class="reveal">
             <div class="container-narrow">
-                <div class="section-label">// 04 — FAQ</div>
+                <div class="section-label">// 05 &mdash; FAQ</div>
                 <h2 class="split-heading" data-split>Questions before your build</h2>
 
                 <div class="faq-list">
@@ -610,7 +689,7 @@
                         </button>
                         <div class="faq-answer">
                             <div class="faq-answer-inner">
-                                Businesses where real people coordinate real tasks every day. Hotels, restaurants, retail, production, distribution. If your team currently runs on WhatsApp messages and memory — if the same problems keep happening because nobody wrote down the solution — this is for you.
+                                Businesses where real people coordinate real tasks every day. Hotels, restaurants, retail, production, distribution. If your team currently runs on WhatsApp messages and memory &mdash; if the same problems keep happening because nobody wrote down the solution &mdash; this is for you.
                             </div>
                         </div>
                     </div>
@@ -622,7 +701,7 @@
                         </button>
                         <div class="faq-answer">
                             <div class="faq-answer-inner">
-                                DEF is our AI engine — the technology that powers your operation behind the scenes. It's a system of AI agents that receives tasks via WhatsApp, delegates to the right person, tracks whether it got done, and writes procedures from real results. Think of it as an operations manager that never sleeps, never forgets, and gets better at delegation every week.
+                                DEF is our AI engine &mdash; Directed Execution Flows. It captures tasks from WhatsApp, classifies what kind of work they are, delegates to the right team member, tracks outcomes, and writes procedures from real results. An operations manager that never sleeps, never forgets, and gets better at delegation every week.
                             </div>
                         </div>
                     </div>
@@ -634,9 +713,9 @@
                         </button>
                         <div class="faq-answer">
                             <div class="faq-answer-inner">
-                                <strong>Month 1:</strong> Business diagnostic, workspace setup, company wiki, all SOPs written, AI agent deployment, WhatsApp integration. Your team starts receiving tasks through the system.<br><br>
-                                <strong>Month 2:</strong> POS and bank integrations go live, dashboards built, automated reporting activated. The system starts writing procedures from real outcomes.<br><br>
-                                <strong>Month 3:</strong> Team training, autonomous optimization, full handover. The AI handles routine delegation on its own. Your operation <strong>improves while you sleep</strong>.
+                                <strong>Month 1:</strong> Business diagnostic, workspace setup, company wiki, all SOPs written, DEF agent deployment, WhatsApp integration. Your team starts receiving tasks through the system.<br><br>
+                                <strong>Month 2:</strong> POS and bank integrations go live, dashboards built, automated reporting activated. DEF starts writing procedures from real outcomes.<br><br>
+                                <strong>Month 3:</strong> Team training, autonomous optimization, full handover. DEF handles routine delegation on its own. Your operation <strong>improves while you sleep</strong>.
                             </div>
                         </div>
                     </div>
@@ -648,7 +727,7 @@
                         </button>
                         <div class="faq-answer">
                             <div class="faq-answer-inner">
-                                Your team uses <strong>WhatsApp</strong> — that's it. Tasks arrive with clear instructions. They respond when done. The system updates automatically. Owners and managers get dashboards to see everything at a glance, but we handle all setup and training. <strong>Zero learning curve for your floor team.</strong>
+                                Your team uses <strong>WhatsApp</strong> &mdash; that's it. Tasks arrive with clear instructions. They respond when done. DEF updates everything automatically. Owners and managers get dashboards to see the full picture, but we handle all setup and training. <strong>Zero learning curve for your floor team.</strong>
                             </div>
                         </div>
                     </div>
@@ -660,19 +739,19 @@
                         </button>
                         <div class="faq-answer">
                             <div class="faq-answer-inner">
-                                You own everything. Workspaces, automations, SOPs, dashboards, DEF agents — all yours. No vendor lock-in. No monthly dependency. If you want continued support or new builds, we offer a retainer. But the system is designed to <strong>run without us</strong>. That's the whole point.
+                                You own everything. Workspaces, automations, SOPs, dashboards, DEF agents &mdash; all yours. No vendor lock-in. No monthly dependency. If you want continued support or new builds, we offer a retainer. But the system is designed to <strong>run without us</strong>. That's the whole point.
                             </div>
                         </div>
                     </div>
 
                     <div class="faq-item">
                         <button class="faq-question" aria-expanded="false">
-                            What does "self-updating" actually mean?
+                            How does DEF learn from my operation?
                             <span class="faq-icon"><span></span><span></span></span>
                         </button>
                         <div class="faq-answer">
                             <div class="faq-answer-inner">
-                                When a task gets completed, the system doesn't just mark it done — it records how it was solved. If the same type of problem gets handled the same way three times, the system writes the procedure automatically. If quality drops, it flags the bottleneck. <strong>Your operation learns from every completed task.</strong>
+                                When a task gets completed, DEF records how it was solved. If the same type of problem gets handled the same way three times, it writes the procedure automatically. If quality drops, it flags the bottleneck. <strong>Your operation learns from every completed task.</strong>
                             </div>
                         </div>
                     </div>
@@ -684,7 +763,7 @@
                         </button>
                         <div class="faq-answer">
                             <div class="faq-answer-inner">
-                                We start every engagement with a <strong>free diagnostic</strong>. We look at your operation, identify where tasks are falling through cracks, where managers have no visibility, and where the same problems keep recurring because nobody documented the fix. From there, we scope your build. If you only need workspace + wiki without AI agents, we adjust. But the method stays the same.
+                                We start every engagement with a <strong>free diagnostic</strong>. We look at your operation, identify where tasks are falling through cracks, where managers have no visibility, and where the same problems keep recurring. From there, we scope your build. Workspace + wiki without AI agents is possible. But the full system is where the real transformation happens.
                             </div>
                         </div>
                     </div>
@@ -696,7 +775,7 @@
                         </button>
                         <div class="faq-answer">
                             <div class="faq-answer-inner">
-                                Based in <strong>Lake Atitlan, Guatemala</strong> — but we operate globally. Most of our client work is remote. For local hospitality businesses, we do on-site visits during the diagnostic and training phases. The systems we build work anywhere.
+                                Based in <strong>Lake Atitlan, Guatemala</strong> &mdash; but we operate globally. Most of our client work is remote. For local hospitality businesses, we do on-site visits during the diagnostic and training phases. DEF works anywhere.
                             </div>
                         </div>
                     </div>
@@ -708,9 +787,9 @@
         <section id="start" class="cta-section reveal">
             <div class="section-container">
                 <h2 class="split-heading" data-split>Send a message. We'll diagnose your operation.</h2>
-                <p class="section-sub">Free diagnostic. No commitment, no consulting fees. We look at how your business runs, identify what's broken, and scope the build. If we're a fit, your operation starts transforming in week one.</p>
+                <p class="section-sub">Free diagnostic. No commitment, no consulting fees. We look at how your business runs, identify what's broken, and scope the build. If we're a fit, DEF starts running your operation in week one.</p>
                 <div class="magnetic-wrap">
-                    <a href="https://wa.me/50237408644?text=Hola%2C%20me%20interesa%20una%20diagn%C3%B3stica%20operativa%20para%20mi%20negocio" target="_blank" rel="noopener" class="btn-primary">Message us on WhatsApp →</a>
+                    <a href="https://wa.me/50237408644?text=Hola%2C%20me%20interesa%20una%20diagn%C3%B3stica%20operativa%20para%20mi%20negocio" target="_blank" rel="noopener" class="btn-primary">Message us on WhatsApp &rarr;</a>
                 </div>
                 <a href="mailto:info@flowstate.help" class="btn-secondary">Or email info@flowstate.help</a>
             </div>
@@ -718,7 +797,7 @@
     </main>
 
     <footer>
-        &copy; 2026 Flowstate Technologies · Guatemala · <a href="https://flowstate.help">flowstate.help</a> · Precision in Motion.
+        &copy; 2026 Flowstate Technologies &middot; Guatemala &middot; <a href="https://flowstate.help">flowstate.help</a> &middot; Precision in Motion.
     </footer>
 
     <a href="https://wa.me/50237408644?text=Hola%2C%20me%20interesa%20una%20diagn%C3%B3stica%20operativa%20para%20mi%20negocio" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Chat on WhatsApp">
@@ -728,8 +807,181 @@
     <script>
     (function() {
         'use strict';
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let mouseX = -9999, mouseY = -9999;
+
+        // ─── WEBGL2 DOT MATRIX ───
+        const canvas = document.getElementById('glCanvas');
+        const gl = canvas.getContext('webgl2', { antialias: false, alpha: true });
+        if (!gl) {
+            document.body.style.background = 'linear-gradient(135deg, #0A0A0F 0%, #12121f 100%)';
+        } else {
+            const vsSource = `#version 300 es
+            precision highp float;
+            in vec2 position;
+            uniform vec2 resolution, mouse;
+            uniform float time;
+            out float vAlpha;
+            void main() {
+                vec2 ndc = position / resolution * 2.0 - 1.0;
+                ndc.y = -ndc.y;
+                vec2 mn = mouse / resolution * 2.0 - 1.0;
+                mn.y = -mn.y;
+                float d = length(ndc - mn);
+                ndc += normalize(ndc - mn) * smoothstep(0.6, 0.0, d) * 0.015;
+                gl_Position = vec4(ndc, 0.0, 1.0);
+                gl_PointSize = 1.5;
+                float sh = sin(time * 0.5 + position.x * 0.01 + position.y * 0.01) * 0.5 + 0.5;
+                vAlpha = mix(0.03, 0.08, sh) + smoothstep(0.4, 0.0, d) * 0.15;
+            }`;
+            const fsSource = `#version 300 es
+            precision highp float;
+            in float vAlpha;
+            out vec4 outColor;
+            void main() {
+                if (length(gl_PointCoord - vec2(0.5)) > 0.5) discard;
+                outColor = vec4(0.4, 0.45, 0.55, vAlpha);
+            }`;
+            function compileShader(src, type) {
+                const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
+                if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) console.error(gl.getShaderInfoLog(s));
+                return s;
+            }
+            const prog = gl.createProgram();
+            gl.attachShader(prog, compileShader(vsSource, gl.VERTEX_SHADER));
+            gl.attachShader(prog, compileShader(fsSource, gl.FRAGMENT_SHADER));
+            gl.linkProgram(prog); gl.useProgram(prog);
+            const positions = []; const spacing = 28;
+            function updateGeometry() {
+                positions.length = 0;
+                const s = Math.min(canvas.width, canvas.height) / spacing;
+                for (let x = 0; x < canvas.width; x += s) for (let y = 0; y < canvas.height; y += s) positions.push(x, y);
+            }
+            const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+            const posLoc = gl.getAttribLocation(prog, 'position');
+            gl.enableVertexAttribArray(posLoc); gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+            const resLoc = gl.getUniformLocation(prog, 'resolution');
+            const mouseLoc = gl.getUniformLocation(prog, 'mouse');
+            const timeLoc = gl.getUniformLocation(prog, 'time');
+            function resize() {
+                canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+                gl.viewport(0, 0, canvas.width, canvas.height);
+                updateGeometry(); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.DYNAMIC_DRAW);
+            }
+            resize(); window.addEventListener('resize', resize);
+            gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+            const t0 = performance.now();
+            function renderGL() {
+                if (document.hidden) { requestAnimationFrame(renderGL); return; }
+                const t = (performance.now() - t0) * 0.001;
+                gl.uniform2f(resLoc, canvas.width, canvas.height);
+                gl.uniform2f(mouseLoc, mouseX, mouseY); gl.uniform1f(timeLoc, t);
+                gl.clearColor(0.039, 0.039, 0.059, 1); gl.clear(gl.COLOR_BUFFER_BIT);
+                gl.drawArrays(gl.POINTS, 0, positions.length / 2);
+                requestAnimationFrame(renderGL);
+            }
+            renderGL();
+        }
+
+        // ─── PARTICLE SYSTEM — Chaos to Order with Connection Lines ───
+        if (!isTouchDevice && !prefersReducedMotion) {
+            const pCanvas = document.getElementById('particleCanvas');
+            const pCtx = pCanvas.getContext('2d');
+            const GS = 32, IR = 200, WA = 20;
+            let particles = [], grid = [];
+            let pW = 0, pH = 0;
+
+            function initParticles() {
+                pW = window.innerWidth; pH = window.innerHeight;
+                pCanvas.width = pW; pCanvas.height = pH;
+                particles = []; grid = [];
+                let row = 0;
+                for (let gy = GS / 2; gy < pH; gy += GS) {
+                    grid[row] = [];
+                    let col = 0;
+                    for (let gx = GS / 2; gx < pW; gx += GS) {
+                        const p = {
+                            x: gx + (Math.random() - 0.5) * GS * 4,
+                            y: gy + (Math.random() - 0.5) * GS * 4,
+                            gridX: gx, gridY: gy,
+                            s1: Math.random() * 100, s2: Math.random() * 100,
+                            s3: Math.random() * 100, s4: Math.random() * 100,
+                            order: 0, size: Math.random() * 1.3 + 0.5
+                        };
+                        grid[row][col] = p;
+                        particles.push(p);
+                        col++;
+                    }
+                    row++;
+                }
+            }
+            initParticles();
+            let resizeT; window.addEventListener('resize', () => { clearTimeout(resizeT); resizeT = setTimeout(initParticles, 150); });
+
+            document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+            document.addEventListener('mouseleave', () => { mouseX = -9999; mouseY = -9999; });
+
+            function renderParticles() {
+                if (document.hidden) { requestAnimationFrame(renderParticles); return; }
+                pCtx.clearRect(0, 0, pW, pH);
+                const time = performance.now() * 0.001;
+
+                for (let i = 0; i < particles.length; i++) {
+                    const p = particles[i];
+                    const cx = p.gridX + Math.sin(time * 0.31 + p.s1) * WA + Math.cos(time * 0.17 + p.s2) * WA * 0.6;
+                    const cy = p.gridY + Math.cos(time * 0.23 + p.s3) * WA + Math.sin(time * 0.13 + p.s4) * WA * 0.6;
+                    const dx = mouseX - p.gridX, dy = mouseY - p.gridY;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    let t = Math.max(0, 1 - dist / IR);
+                    t = t * t * (3 - 2 * t);
+                    p.order += (t - p.order) * (t > p.order ? 0.06 : 0.018);
+                    const tx = cx * (1 - p.order) + p.gridX * p.order;
+                    const ty = cy * (1 - p.order) + p.gridY * p.order;
+                    p.x += (tx - p.x) * 0.1;
+                    p.y += (ty - p.y) * 0.1;
+                }
+
+                pCtx.strokeStyle = 'rgb(0, 102, 255)';
+                pCtx.lineWidth = 0.6;
+                for (let r = 0; r < grid.length; r++) {
+                    for (let c = 0; c < grid[r].length; c++) {
+                        const p = grid[r][c];
+                        if (p.order < 0.15) continue;
+                        if (c + 1 < grid[r].length) {
+                            const pr = grid[r][c + 1];
+                            if (pr.order > 0.15) {
+                                pCtx.globalAlpha = Math.min(p.order, pr.order) * 0.28;
+                                pCtx.beginPath(); pCtx.moveTo(p.x, p.y); pCtx.lineTo(pr.x, pr.y); pCtx.stroke();
+                            }
+                        }
+                        if (r + 1 < grid.length && c < grid[r + 1].length) {
+                            const pb = grid[r + 1][c];
+                            if (pb.order > 0.15) {
+                                pCtx.globalAlpha = Math.min(p.order, pb.order) * 0.28;
+                                pCtx.beginPath(); pCtx.moveTo(p.x, p.y); pCtx.lineTo(pb.x, pb.y); pCtx.stroke();
+                            }
+                        }
+                    }
+                }
+
+                for (let i = 0; i < particles.length; i++) {
+                    const p = particles[i];
+                    const alpha = 0.06 + p.order * 0.5;
+                    const r = Math.round(138 * (1 - p.order));
+                    const g = Math.round(138 * (1 - p.order) + 102 * p.order);
+                    const b = Math.round(154 * (1 - p.order) + 255 * p.order);
+                    pCtx.globalAlpha = alpha;
+                    pCtx.fillStyle = `rgb(${r},${g},${b})`;
+                    pCtx.beginPath(); pCtx.arc(p.x, p.y, p.size * (0.7 + p.order * 0.6), 0, 6.2832); pCtx.fill();
+                }
+                pCtx.globalAlpha = 1;
+                requestAnimationFrame(renderParticles);
+            }
+            renderParticles();
+        } else if (!isTouchDevice) {
+            document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+        }
 
         // ─── HEADER SCROLL ───
         const header = document.querySelector('header');
@@ -767,25 +1019,58 @@
             } else { heading.classList.add('animate'); }
         });
 
+        // ─── COUNTERS ───
+        const counters = document.querySelectorAll('.counter');
+        const cObs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.dataset.counted) {
+                    entry.target.dataset.counted = 'true';
+                    const target = parseInt(entry.target.dataset.target);
+                    const start = performance.now();
+                    function upd(now) {
+                        const p = Math.min((now - start) / 2000, 1);
+                        const e = p === 1 ? 1 : 1 - Math.pow(2, -10 * p);
+                        entry.target.textContent = Math.round(target * e);
+                        if (p < 1) requestAnimationFrame(upd);
+                    }
+                    requestAnimationFrame(upd);
+                }
+            });
+        }, { threshold: 0.5 });
+        counters.forEach(c => cObs.observe(c));
+
         // ─── FAQ ACCORDION ───
         document.querySelectorAll('.faq-question').forEach(btn => {
             btn.addEventListener('click', () => {
                 const item = btn.closest('.faq-item');
                 const isOpen = item.classList.contains('open');
-
-                // Close all
                 document.querySelectorAll('.faq-item.open').forEach(openItem => {
                     openItem.classList.remove('open');
                     openItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
                 });
-
-                // Toggle current
                 if (!isOpen) {
                     item.classList.add('open');
                     btn.setAttribute('aria-expanded', 'true');
                 }
             });
         });
+
+        // ─── 3D TILT ───
+        if (!isTouchDevice && !prefersReducedMotion) {
+            document.querySelectorAll('.tilt-container').forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const r = card.getBoundingClientRect();
+                    const rx = ((e.clientY - r.top - r.height / 2) / (r.height / 2)) * -5;
+                    const ry = ((e.clientX - r.left - r.width / 2) / (r.width / 2)) * 5;
+                    card.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02)`;
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+                    card.style.transition = 'transform 0.5s var(--ease-out-expo)';
+                    setTimeout(() => { card.style.transition = ''; }, 500);
+                });
+            });
+        }
 
         // ─── MAGNETIC BUTTONS ───
         if (!isTouchDevice && !prefersReducedMotion) {
@@ -804,6 +1089,176 @@
                 });
             });
         }
+
+        // ─── MIND MAP ANIMATION — DEF Engine Circuit ───
+        if (!isTouchDevice && !prefersReducedMotion) {
+            const mmCanvas = document.getElementById('mindMapCanvas');
+            if (mmCanvas) {
+                const mmCtx = mmCanvas.getContext('2d');
+                const mmWrap = mmCanvas.parentElement;
+                let mmW, mmH;
+
+                const nodePos = [
+                    { x: 0.50, y: 0.50 }, // center: DEF
+                    { x: 0.50, y: 0.08 }, // Capture
+                    { x: 0.85, y: 0.36 }, // Classify
+                    { x: 0.72, y: 0.84 }, // Delegate
+                    { x: 0.28, y: 0.84 }, // Track
+                    { x: 0.15, y: 0.36 }, // Learn
+                ];
+
+                const circuit = [
+                    [1, 2], [2, 3], [3, 4], [4, 5], [5, 1],
+                ];
+
+                let energyParticles = [];
+                const NODE_R_FRAC = 0.067;
+
+                function mmResize() {
+                    const r = mmWrap.getBoundingClientRect();
+                    mmW = r.width; mmH = r.height;
+                    mmCanvas.width = mmW; mmCanvas.height = mmH;
+                }
+                mmResize();
+                let mmResizeT; window.addEventListener('resize', () => { clearTimeout(mmResizeT); mmResizeT = setTimeout(mmResize, 150); });
+
+                function drawArrow(fromX, fromY, toX, toY, nodeR) {
+                    const angle = Math.atan2(toY - fromY, toX - fromX);
+                    const startX = fromX + Math.cos(angle) * nodeR;
+                    const startY = fromY + Math.sin(angle) * nodeR;
+                    const endX = toX - Math.cos(angle) * (nodeR + 6);
+                    const endY = toY - Math.sin(angle) * (nodeR + 6);
+                    mmCtx.beginPath(); mmCtx.moveTo(startX, startY); mmCtx.lineTo(endX, endY); mmCtx.stroke();
+                    const headLen = 9;
+                    mmCtx.beginPath();
+                    mmCtx.moveTo(endX, endY);
+                    mmCtx.lineTo(endX - headLen * Math.cos(angle - 0.4), endY - headLen * Math.sin(angle - 0.4));
+                    mmCtx.lineTo(endX - headLen * Math.cos(angle + 0.4), endY - headLen * Math.sin(angle + 0.4));
+                    mmCtx.closePath(); mmCtx.fill();
+                }
+
+                function easeInOut(t) { return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+
+                function spawnEnergy(segIndex) {
+                    energyParticles.push({
+                        seg: segIndex, t: 0,
+                        speed: 0.0035 + Math.random() * 0.002,
+                        size: 2.5 + Math.random() * 2,
+                        brightness: 0.7 + Math.random() * 0.3,
+                        age: 0, maxAge: 5 + Math.floor(Math.random() * 5),
+                    });
+                }
+
+                let spawnAccum = 0;
+
+                function renderMindMap() {
+                    if (document.hidden) { requestAnimationFrame(renderMindMap); return; }
+                    mmCtx.clearRect(0, 0, mmW, mmH);
+                    const time = performance.now() * 0.001;
+                    const nodeR = NODE_R_FRAC * mmW;
+
+                    for (let i = 0; i < circuit.length; i++) {
+                        const [from, to] = circuit[i];
+                        const a = nodePos[from], b = nodePos[to];
+                        const pulse = 0.14 + Math.sin(time * 1.0 + i * 1.25) * 0.06;
+                        mmCtx.strokeStyle = `rgba(0,102,255,${pulse})`;
+                        mmCtx.fillStyle = `rgba(0,102,255,${pulse + 0.06})`;
+                        mmCtx.lineWidth = 1.5;
+                        drawArrow(a.x * mmW, a.y * mmH, b.x * mmW, b.y * mmH, nodeR);
+                    }
+
+                    spawnAccum += 0.016;
+                    if (spawnAccum > 0.5 && energyParticles.length < 30) {
+                        spawnEnergy(Math.floor(Math.random() * circuit.length));
+                        spawnAccum = 0;
+                    }
+
+                    for (let i = energyParticles.length - 1; i >= 0; i--) {
+                        const p = energyParticles[i];
+                        p.t += p.speed;
+                        if (p.t >= 1) {
+                            p.seg = (p.seg + 1) % circuit.length;
+                            p.t = 0; p.age++;
+                            if (p.age >= p.maxAge) { energyParticles.splice(i, 1); continue; }
+                        }
+                        const [from, to] = circuit[p.seg];
+                        const a = nodePos[from], b = nodePos[to];
+                        const eased = easeInOut(p.t);
+                        const x = (a.x + (b.x - a.x) * eased) * mmW;
+                        const y = (a.y + (b.y - a.y) * eased) * mmH;
+
+                        const glowAlpha = Math.sin(p.t * Math.PI) * p.brightness * 0.4;
+                        const grd = mmCtx.createRadialGradient(x, y, 0, x, y, p.size * 5);
+                        grd.addColorStop(0, `rgba(0,102,255,${glowAlpha})`);
+                        grd.addColorStop(0.4, `rgba(80,140,255,${glowAlpha * 0.4})`);
+                        grd.addColorStop(1, 'rgba(0,102,255,0)');
+                        mmCtx.fillStyle = grd;
+                        mmCtx.beginPath(); mmCtx.arc(x, y, p.size * 5, 0, 6.2832); mmCtx.fill();
+
+                        const coreAlpha = Math.sin(p.t * Math.PI) * p.brightness;
+                        mmCtx.fillStyle = `rgba(140,200,255,${coreAlpha})`;
+                        mmCtx.beginPath(); mmCtx.arc(x, y, p.size, 0, 6.2832); mmCtx.fill();
+
+                        for (let tr = 1; tr <= 4; tr++) {
+                            const trailT = Math.max(0, p.t - tr * 0.035);
+                            const te = easeInOut(trailT);
+                            const tx = (a.x + (b.x - a.x) * te) * mmW;
+                            const ty = (a.y + (b.y - a.y) * te) * mmH;
+                            const ta = coreAlpha * (1 - tr * 0.22) * 0.45;
+                            mmCtx.fillStyle = `rgba(0,102,255,${Math.max(0, ta)})`;
+                            mmCtx.beginPath(); mmCtx.arc(tx, ty, p.size * (1 - tr * 0.18), 0, 6.2832); mmCtx.fill();
+                        }
+                    }
+
+                    const centerGlow = (Math.sin(time * 1.5) * 0.5 + 0.5) * 0.1;
+                    const cx = nodePos[0].x * mmW, cy = nodePos[0].y * mmH;
+                    const cGrad = mmCtx.createRadialGradient(cx, cy, 0, cx, cy, 55);
+                    cGrad.addColorStop(0, `rgba(0,102,255,${centerGlow})`);
+                    cGrad.addColorStop(1, 'rgba(0,102,255,0)');
+                    mmCtx.fillStyle = cGrad;
+                    mmCtx.beginPath(); mmCtx.arc(cx, cy, 55, 0, 6.2832); mmCtx.fill();
+
+                    for (let n = 1; n <= 5; n++) {
+                        const delay = (n - 1) * 0.56;
+                        const beat = Math.sin((time - delay) * (Math.PI * 2 / 2.8)) * 0.5 + 0.5;
+                        const nx = nodePos[n].x * mmW, ny = nodePos[n].y * mmH;
+                        const nGrad = mmCtx.createRadialGradient(nx, ny, nodeR - 8, nx, ny, nodeR + 18);
+                        nGrad.addColorStop(0, `rgba(0,102,255,${beat * 0.07})`);
+                        nGrad.addColorStop(1, 'rgba(0,102,255,0)');
+                        mmCtx.fillStyle = nGrad;
+                        mmCtx.beginPath(); mmCtx.arc(nx, ny, nodeR + 18, 0, 6.2832); mmCtx.fill();
+                    }
+
+                    requestAnimationFrame(renderMindMap);
+                }
+
+                const mmObs = new IntersectionObserver((entries) => {
+                    if (entries[0].isIntersecting) { mmResize(); renderMindMap(); mmObs.disconnect(); }
+                }, { threshold: 0.1 });
+                mmObs.observe(mmWrap);
+            }
+        }
+
+        // ─── TIMELINE SCRUB ───
+        if (!prefersReducedMotion) {
+            const ts = document.getElementById('timeline-scrub'), tp = document.getElementById('timeline-progress');
+            const months = document.querySelectorAll('.timeline-month');
+            if (ts && window.innerWidth > 768) {
+                const tObs = new IntersectionObserver((entries) => {
+                    entries.forEach(e => {
+                        if (e.isIntersecting) { updTL(); window.addEventListener('scroll', updTL, { passive: true }); }
+                        else window.removeEventListener('scroll', updTL);
+                    });
+                }, { threshold: 0 });
+                tObs.observe(ts);
+                function updTL() {
+                    const r = ts.getBoundingClientRect();
+                    const p = Math.max(0, Math.min(1, (window.innerHeight / 2 - r.top) / r.height));
+                    tp.style.width = `${p * 100}%`;
+                    months.forEach((m, i) => { if (p >= (i + 0.3) / months.length) m.classList.add('active'); });
+                }
+            } else months.forEach(m => m.classList.add('active'));
+        } else document.querySelectorAll('.timeline-month').forEach(m => m.classList.add('active'));
     })();
     </script>
 </body>
