@@ -261,9 +261,13 @@
         footer { position: relative; z-index: 3; text-align: center; padding: 3rem 2rem; font-size: 0.8rem; color: var(--steel-dark); border-top: 1px solid var(--glass-border); }
         footer a { color: var(--steel); text-decoration: none; transition: color 0.25s ease; }
         footer a:hover { color: var(--signal); }
+
+        .skip-link { position: absolute; top: -100px; left: 50%; transform: translateX(-50%); background: var(--signal); color: var(--void); padding: 12px 24px; border-radius: 100px; font-weight: 600; font-size: 0.9rem; z-index: 200; text-decoration: none; transition: top 0.2s ease; }
+        .skip-link:focus { top: 16px; }
     </style>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
     <div class="noise-overlay" aria-hidden="true"></div>
 
     <header>
@@ -288,7 +292,7 @@
         <a href="/contact">Contact</a>
     </div>
 
-    <main>
+    <main id="main-content">
         <section class="contact-hero">
             <div class="section-container">
                 <div class="hero-label">// START THE CONVERSATION</div>
@@ -389,6 +393,15 @@
         });
         mobileMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => { mobileMenu.classList.remove('open'); hamburger.classList.remove('active'); hamburger.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; });
+        });
+        document.addEventListener('keydown', (e) => {
+            if (!mobileMenu.classList.contains('open')) return;
+            if (e.key === 'Escape') { hamburger.click(); hamburger.focus(); return; }
+            if (e.key !== 'Tab') return;
+            const focusable = [hamburger, ...mobileMenu.querySelectorAll('a')];
+            const first = focusable[0], last = focusable[focusable.length - 1];
+            if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+            else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
         });
 
         // Scroll reveal
