@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About — Flowstate Technologies</title>
+    <meta name="description" content="Flowstate Technologies exists because one founder's ADHD brain refused to operate like everyone else's — and that refusal became the breakthrough. Our origin, our mission, our ethical spine.">
+    <meta property="og:title" content="About Flowstate Technologies">
+    <meta property="og:description" content="Origin, mission, vision 2029, and the ethical spine. The operating system for human purpose.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://flowstate.help/about">
+    <meta property="og:image" content="https://flowstate.help/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="About Flowstate Technologies">
+    <meta name="twitter:description" content="Origin, mission, vision 2029, and the ethical spine.">
+    <meta name="twitter:image" content="https://flowstate.help/og-image.png">
+    <link rel="canonical" href="https://flowstate.help/about">
+    <script src="/config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --void: #0A0A0F; --grid: #1A1A2E;
+            --signal: #0066FF; --signal-hover: #0052CC;
+            --signal-dim: rgba(0,102,255,0.08); --signal-glow: rgba(0,102,255,0.15);
+            --purple: #7B2FBE; --purple-hover: #6A28A3;
+            --white: #F5F5F7; --steel: #8A8A9A; --steel-dark: #7a7a8a;
+            --glass-bg: rgba(255,255,255,0.03); --glass-border: rgba(255,255,255,0.08);
+            --glass-hover-bg: rgba(255,255,255,0.05); --glass-hover-border: rgba(255,255,255,0.14);
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+            .reveal { opacity: 1 !important; transform: none !important; }
+        }
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; border-radius: 4px; }
+        html { font-size: 16px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+        body { font-family: var(--font-primary); background: var(--void); color: var(--steel); overflow-x: hidden; line-height: 1.6; }
+        .noise-overlay { position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.035; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' fill='white'/%3E%3C/svg%3E"); }
+        main { position: relative; z-index: 3; }
+        .section-container { max-width: 1100px; margin: 0 auto; padding: 0 clamp(1.5rem, 5vw, 4rem); }
+        section { padding: clamp(32px, 4vw, 64px) 0; }
+
+        h1, h2, h3 { font-family: var(--font-primary); color: var(--white); line-height: 1.1; letter-spacing: -0.03em; }
+        h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 900; }
+        h2 { font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 700; margin-bottom: 1.5rem; }
+        h3 { font-size: clamp(1.1rem, 1.5vw, 1.3rem); font-weight: 700; margin-bottom: 0.75rem; }
+
+        .section-label { font-family: var(--font-mono); font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.15em; color: var(--signal); margin-bottom: 1.5rem; }
+        .section-sub { font-size: clamp(1rem, 1.2vw, 1.1rem); color: var(--steel); max-width: 760px; margin-top: 1rem; line-height: 1.75; }
+        .section-sub + .section-sub { margin-top: 1.25rem; }
+        .section-sub strong { color: var(--white); font-weight: 600; }
+
+        /* HEADER */
+        header { position: fixed; top: 24px; left: 50%; transform: translateX(-50%); z-index: 100; display: flex; align-items: center; gap: 2rem; padding: 12px 28px; background: rgba(10, 10, 15, 0.7); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 100px; transition: all 0.4s var(--ease-out-expo); max-width: 90vw; }
+        header.scrolled { top: 12px; padding: 8px 24px; background: rgba(10,10,15,0.85); border-color: rgba(255,255,255,0.12); }
+        .logo { font-family: var(--font-primary); font-weight: 900; font-size: 1rem; color: var(--white); text-decoration: none; white-space: nowrap; letter-spacing: -0.02em; }
+        .logo span { background: linear-gradient(135deg, var(--signal), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        nav { display: flex; gap: 0.25rem; align-items: center; }
+        nav a { font-size: 0.8rem; font-weight: 500; color: var(--steel); text-decoration: none; padding: 6px 14px; border-radius: 100px; transition: color 0.25s ease, background 0.25s ease; }
+        nav a:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+        nav a.active { color: var(--white); }
+        .nav-cta { font-size: 0.8rem; font-weight: 600; color: var(--void) !important; background: var(--signal) !important; padding: 8px 20px !important; border-radius: 100px; transition: background 0.25s ease !important; }
+        .nav-cta:hover { background: var(--signal-hover) !important; }
+        .hamburger { display: none; background: none; border: none; cursor: pointer; width: 28px; height: 20px; position: relative; }
+        .hamburger span { display: block; width: 100%; height: 2px; background: var(--white); border-radius: 2px; position: absolute; left: 0; transition: all 0.3s ease; }
+        .hamburger span:nth-child(1) { top: 0; } .hamburger span:nth-child(2) { top: 9px; } .hamburger span:nth-child(3) { top: 18px; }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg); top: 9px; }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg); top: 9px; }
+        .mobile-menu { position: fixed; inset: 0; z-index: 99; background: rgba(10,10,15,0.95); backdrop-filter: blur(30px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; opacity: 0; pointer-events: none; transition: opacity 0.4s var(--ease-out-expo); }
+        .mobile-menu.open { opacity: 1; pointer-events: all; }
+        .mobile-menu a { font-size: 1.5rem; font-weight: 700; color: var(--white); text-decoration: none; opacity: 0; transform: translateY(20px); transition: opacity 0.4s ease, transform 0.4s var(--ease-out-expo), color 0.2s ease; }
+        .mobile-menu.open a { opacity: 1; transform: translateY(0); }
+        .mobile-menu a:hover { color: var(--signal); }
+        .mobile-menu a:nth-child(1) { transition-delay: 0.05s; } .mobile-menu a:nth-child(2) { transition-delay: 0.1s; }
+        .mobile-menu a:nth-child(3) { transition-delay: 0.15s; } .mobile-menu a:nth-child(4) { transition-delay: 0.2s; }
+        .mobile-menu a:nth-child(5) { transition-delay: 0.25s; } .mobile-menu a:nth-child(6) { transition-delay: 0.3s; }
+        @media (max-width: 768px) { nav { display: none; } .hamburger { display: block; } }
+
+        /* HERO */
+        .about-hero { min-height: 70vh; display: flex; flex-direction: column; justify-content: center; padding: clamp(120px, 14vh, 180px) 0 clamp(40px, 6vh, 80px); }
+        .hero-label { font-family: var(--font-mono); font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.2em; color: var(--signal); margin-bottom: 2rem; }
+        .about-hero h1 { margin-bottom: 1.5rem; max-width: 900px; }
+        .about-hero .hero-sub { font-size: clamp(1.05rem, 1.3vw, 1.2rem); color: var(--steel); max-width: 720px; line-height: 1.7; }
+
+        /* BLOCKQUOTE */
+        .verbatim { font-family: var(--font-primary); font-size: clamp(1.3rem, 2.5vw, 1.7rem); font-weight: 500; line-height: 1.4; color: var(--white); max-width: 820px; margin: 3rem auto; text-align: center; padding: 2rem 1.5rem; border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); letter-spacing: -0.01em; }
+        .verbatim::before { content: '"'; color: var(--signal); font-family: var(--font-mono); }
+        .verbatim::after { content: '"'; color: var(--signal); font-family: var(--font-mono); }
+
+        /* GRID LISTS */
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
+        @media (max-width: 900px) { .grid-3, .grid-2 { grid-template-columns: 1fr; } }
+        .glass-item { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px; padding: clamp(1.5rem, 2.5vw, 2rem); transition: background 0.4s ease, border-color 0.4s ease; }
+        .glass-item:hover { background: var(--glass-hover-bg); border-color: var(--glass-hover-border); }
+        .glass-item .tag { font-family: var(--font-mono); font-size: 0.7rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--signal); display: block; margin-bottom: 0.75rem; }
+        .glass-item h3 { font-size: 1.05rem; margin-bottom: 0.6rem; }
+        .glass-item p { font-size: 0.9rem; line-height: 1.65; color: var(--steel); }
+
+        /* COMMITMENTS */
+        .commitments { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: 2.5rem; max-width: 820px; }
+        .commitment { background: var(--glass-bg); border: 1px solid var(--glass-border); border-left: 3px solid var(--signal); border-radius: 14px; padding: 1.25rem 1.5rem; display: flex; gap: 1rem; align-items: flex-start; }
+        .commitment-num { font-family: var(--font-mono); font-size: 0.9rem; font-weight: 500; color: var(--signal); flex-shrink: 0; min-width: 28px; }
+        .commitment p { font-size: 0.95rem; line-height: 1.6; color: var(--white); }
+
+        /* FOUNDER */
+        .founder-block { display: grid; grid-template-columns: 120px 1fr; gap: 2rem; align-items: start; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 20px; padding: clamp(2rem, 3vw, 2.5rem); margin-top: 2rem; max-width: 900px; }
+        .founder-avatar { width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, var(--signal), var(--purple)); display: flex; align-items: center; justify-content: center; font-family: var(--font-primary); font-weight: 900; font-size: 2.5rem; color: var(--void); }
+        .founder-meta h3 { font-size: 1.3rem; margin-bottom: 0.25rem; }
+        .founder-meta .role { font-family: var(--font-mono); font-size: 0.75rem; color: var(--signal); text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 1rem; }
+        .founder-meta p { font-size: 0.92rem; color: var(--steel); line-height: 1.7; margin-bottom: 0.75rem; }
+        @media (max-width: 768px) { .founder-block { grid-template-columns: 1fr; text-align: center; } .founder-avatar { margin: 0 auto; } }
+
+        /* CTA */
+        .cta-section { text-align: center; padding: clamp(48px, 6vw, 80px) 0; }
+        .btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-primary); font-size: 1rem; font-weight: 600; color: var(--void); background: var(--signal); padding: 16px 36px; border-radius: 100px; text-decoration: none; transition: background 0.3s ease, box-shadow 0.3s ease; }
+        .btn-primary:hover { background: var(--signal-hover); box-shadow: 0 0 40px rgba(0,102,255,0.25); }
+
+        /* REVEAL */
+        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo); }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        footer { position: relative; z-index: 3; text-align: center; padding: 3rem 2rem; font-size: 0.8rem; color: var(--steel-dark); border-top: 1px solid var(--glass-border); }
+        footer a { color: var(--steel); text-decoration: none; transition: color 0.25s ease; }
+        footer a:hover { color: var(--signal); }
+
+        .skip-link { position: absolute; top: -100px; left: 50%; transform: translateX(-50%); background: var(--signal); color: var(--void); padding: 12px 24px; border-radius: 100px; font-weight: 600; font-size: 0.9rem; z-index: 200; text-decoration: none; transition: top 0.2s ease; }
+        .skip-link:focus { top: 16px; }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
+    <div class="noise-overlay" aria-hidden="true"></div>
+
+    <header>
+        <a href="/" class="logo">Flow<span>state</span></a>
+        <nav>
+            <a href="/about" class="active">About</a>
+            <a href="/services">DEF</a>
+            <a href="/case-studies">Case Studies</a>
+            <a href="/contact">Contact</a>
+            <a href="https://wa.me/50237408644" target="_blank" rel="noopener" class="nav-cta">Get Started</a>
+        </nav>
+        <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/services">DEF</a>
+        <a href="/case-studies">Case Studies</a>
+        <a href="/contact">Contact</a>
+    </div>
+
+    <main id="main-content">
+        <!-- HERO -->
+        <section class="about-hero">
+            <div class="section-container">
+                <div class="hero-label">// ABOUT FLOWSTATE TECHNOLOGIES</div>
+                <h1>We're not a consultancy. We're building the operating system your company — and eventually every human — is missing.</h1>
+                <p class="hero-sub">Flowstate exists because its founder's brain refused to operate like everyone else's — and that refusal became the breakthrough. This is how it started, where it's going, and what we will never do to get there.</p>
+            </div>
+        </section>
+
+        <!-- ORIGIN -->
+        <section class="reveal">
+            <div class="section-container">
+                <div class="section-label">// 01 — ORIGIN</div>
+                <h2>One brain, refusing to operate like everyone else's.</h2>
+                <p class="section-sub">Alejandro Eva has severe ADHD. For years, the obstacle was never ambition, intelligence, or work ethic. It was the noise. The infinite simultaneous signals. The inability to isolate the one action that mattered from the thousand that didn't. Every system designed for "normal" brains — calendars, to-do lists, planners, productivity frameworks — failed. Not because they were bad systems. Because they assumed a mind that could prioritize linearly. His couldn't.</p>
+                <p class="section-sub">So he engineered his own. After years of iteration — not theory, not reading, not medication — he built a personal operating architecture that did one thing no other system had done for him: <strong>it eliminated the decision of what to do next.</strong> The system decided. The system sequenced. The system fed him one precise action at a time. And with the noise removed, the ADHD brain didn't just function — it dominated. What others called a disorder became the most powerful engine in the room — because it was finally aimed.</p>
+                <p class="section-sub">The realization that followed was the genesis of Flowstate:</p>
+
+                <p class="verbatim">Everything any person or organization wants to achieve has a sequence. The problem is never capability. The problem is noise.</p>
+
+                <p class="section-sub">Flowstate was not founded on a business plan. It was founded on a proof of concept that happened inside one person's skull — and the conviction that it scales to any operation on earth. First to companies. Eventually to every human reaching for any goal.</p>
+            </div>
+        </section>
+
+        <!-- MISSION -->
+        <section class="reveal">
+            <div class="section-container">
+                <div class="section-label">// 02 — MISSION</div>
+                <h2>We eliminate operational chaos — and replace it with synchronized execution.</h2>
+                <p class="section-sub">We exist to answer two questions for every client, permanently:</p>
+
+                <div class="grid-2" style="margin-top: 2rem;">
+                    <div class="glass-item">
+                        <span class="tag">// QUESTION 01</span>
+                        <h3>"How do I get there?"</h3>
+                        <p>Every goal has a sequence. We map it.</p>
+                    </div>
+                    <div class="glass-item">
+                        <span class="tag">// QUESTION 02</span>
+                        <h3>"What happens next?"</h3>
+                        <p>Every role knows. In real time. Automatically.</p>
+                    </div>
+                </div>
+
+                <p class="section-sub" style="margin-top: 2rem;">When those questions have clear, automatic, real-time answers for every person in the organization — the organization becomes unstoppable.</p>
+            </div>
+        </section>
+
+        <!-- VISION 2029 -->
+        <section class="reveal">
+            <div class="section-container">
+                <div class="section-label">// 03 — VISION 2029</div>
+                <h2>By 2029, Flowstate is the operational architecture behind dozens of scaling companies — and then becomes public infrastructure.</h2>
+                <p class="section-sub">The companies we build will share one trait that separates them from their competitors: <strong>they execute with mechanical precision because every part of their operation is synchronized by design, not by effort.</strong></p>
+                <p class="section-sub">Closed-source until 2029. Then the Method and the outcome-ranked SOP commons open to the public as infrastructure — a peer-contributed, success-rate-ranked library of validated execution paths. Users pick the path. Outcomes rank the path. Knowledge compounds through distributed contribution.</p>
+                <p class="section-sub">Flowstate will be known globally as the firm that does not advise — <strong>it installs.</strong> The firm you bring in when you're ready to stop managing and start engineering.</p>
+
+                <p class="verbatim">If Flowstate built it, it runs.</p>
+            </div>
+        </section>
+
+        <!-- BRAND COMMITMENTS -->
+        <section class="reveal">
+            <div class="section-container">
+                <div class="section-label">// 04 — COMMITMENTS</div>
+                <h2>Six promises. Published. Enforceable.</h2>
+                <p class="section-sub">These are how we hold ourselves accountable. To every client. To every partner. To every human who trusts the system we're building.</p>
+
+                <div class="commitments">
+                    <div class="commitment">
+                        <span class="commitment-num">01</span>
+                        <p>We deliver the complete system — not a plan, not a strategy, not a deck. <strong>The working machine.</strong></p>
+                    </div>
+                    <div class="commitment">
+                        <span class="commitment-num">02</span>
+                        <p>Every person in your operation will know their precise function at every moment. No ambiguity. No "I didn't know."</p>
+                    </div>
+                    <div class="commitment">
+                        <span class="commitment-num">03</span>
+                        <p>Your business will execute as one coordinated motion — personal and organizational aligned, every role synchronized.</p>
+                    </div>
+                    <div class="commitment">
+                        <span class="commitment-num">04</span>
+                        <p>We never begin work without a signed agreement. Respect goes both directions.</p>
+                    </div>
+                    <div class="commitment">
+                        <span class="commitment-num">05</span>
+                        <p>We respond within 24 hours. Always.</p>
+                    </div>
+                    <div class="commitment">
+                        <span class="commitment-num">06</span>
+                        <p>We tell you the truth. Even when the truth is that the problem is you.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ETHICAL SPINE -->
+        <section class="reveal">
+            <div class="section-container">
+                <div class="section-label">// 05 — ETHICAL SPINE</div>
+                <h2>One law underneath everything.</h2>
+                <p class="verbatim">We don't work for the government or for control of the people. We work for the people because we know what humans are capable of.</p>
+                <p class="section-sub">We're anti-Matrix. Not anti-corporate, not anti-government reflexively. Anti the web of systems that keep humans asleep, consuming, distracted, dependent, ignorant. That filter informs every partnership, every hire, every feature.</p>
+                <div class="grid-2">
+                    <div class="glass-item">
+                        <span class="tag">// WE REFUSE</span>
+                        <h3>What we will never build</h3>
+                        <p>Surveillance tooling. Data-filtering against users. Government compliance dashboards. Attention-farming notifications. Apps that monetize distraction or upsell at the moment of weakness.</p>
+                    </div>
+                    <div class="glass-item">
+                        <span class="tag">// WE STAND FOR</span>
+                        <h3>What we will always hold</h3>
+                        <p>Full transparency to the user. No backdoors. Ever. The user reaching their goal is the business. Completion beats engagement. Every notification earns its right to fire.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOUNDER -->
+        <section class="reveal">
+            <div class="section-container">
+                <div class="section-label">// 06 — FOUNDER</div>
+                <h2>Built personally. Delivered personally.</h2>
+                <div class="founder-block">
+                    <div class="founder-avatar">AE</div>
+                    <div class="founder-meta">
+                        <h3>Alejandro Eva</h3>
+                        <span class="role">Founder &amp; CEO</span>
+                        <p>Builder of the system. Keeper of the Mountain. Every client engagement — from diagnostic to deployment — runs through his hands. Based in Lake Atitlán, Guatemala, working with hospitality teams across the region.</p>
+                        <p>Severe ADHD forced him to engineer a personal operating architecture that eliminated the decision of what to do next. That architecture became the Flowstate Method. The Method became a company. The company is now building products that install the Method inside real operations. First DEF. More to come.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section reveal">
+            <div class="section-container">
+                <h2>Ready to see the Method inside your operation?</h2>
+                <p class="section-sub" style="margin: 1rem auto 2.5rem;">Our first product — DEF — is running with 8 hospitality teams. If that's you, start the conversation.</p>
+                <a href="/contact" class="btn-primary">Start the conversation →</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        &copy; 2026 Flowstate Technologies&trade; &middot; Guatemala &middot; <a href="/">flowstate.help</a> &middot; Precision in Motion.&trade;
+    </footer>
+
+    <script>
+    (function() {
+        'use strict';
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => { header.classList.toggle('scrolled', window.scrollY > 50); }, { passive: true });
+
+        const hamburger = document.querySelector('.hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        hamburger.addEventListener('click', () => {
+            const isOpen = mobileMenu.classList.toggle('open');
+            hamburger.classList.toggle('active');
+            hamburger.setAttribute('aria-expanded', isOpen);
+            document.body.style.overflow = isOpen ? 'hidden' : '';
+        });
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => { mobileMenu.classList.remove('open'); hamburger.classList.remove('active'); hamburger.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; });
+        });
+        document.addEventListener('keydown', (e) => {
+            if (!mobileMenu.classList.contains('open')) return;
+            if (e.key === 'Escape') { hamburger.click(); hamburger.focus(); return; }
+            if (e.key !== 'Tab') return;
+            const focusable = [hamburger, ...mobileMenu.querySelectorAll('a')];
+            const first = focusable[0], last = focusable[focusable.length - 1];
+            if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+            else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        });
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!prefersReducedMotion) {
+            const revealObs = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
+            document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+        } else { document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible')); }
+    })();
+    </script>
+</body>
+</html>

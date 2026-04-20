@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Studies — Flowstate Technologies</title>
+    <meta name="description" content="Real operations. Real numbers. Four hospitality teams where the Flowstate Method now runs daily — what they had, what we built, what changed.">
+    <meta property="og:title" content="Case Studies — Flowstate Technologies">
+    <meta property="og:description" content="Real operations. Real numbers. Four transformations from chaos to synchronized execution.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://flowstate.help/case-studies">
+    <meta property="og:image" content="https://flowstate.help/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Case Studies — Flowstate Technologies">
+    <meta name="twitter:description" content="Real operations. Real numbers.">
+    <meta name="twitter:image" content="https://flowstate.help/og-image.png">
+    <link rel="canonical" href="https://flowstate.help/case-studies">
+    <script src="/config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --void: #0A0A0F; --grid: #1A1A2E;
+            --signal: #0066FF; --signal-hover: #0052CC;
+            --signal-dim: rgba(0,102,255,0.08); --signal-glow: rgba(0,102,255,0.15);
+            --purple: #7B2FBE; --white: #F5F5F7; --steel: #8A8A9A; --steel-dark: #7a7a8a;
+            --glass-bg: rgba(255,255,255,0.03); --glass-border: rgba(255,255,255,0.08);
+            --glass-hover-bg: rgba(255,255,255,0.05); --glass-hover-border: rgba(255,255,255,0.14);
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+            .reveal { opacity: 1 !important; transform: none !important; }
+        }
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; border-radius: 4px; }
+        html { font-size: 16px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+        body { font-family: var(--font-primary); background: var(--void); color: var(--steel); overflow-x: hidden; line-height: 1.6; }
+        .noise-overlay { position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.035; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' fill='white'/%3E%3C/svg%3E"); }
+        main { position: relative; z-index: 3; }
+        .section-container { max-width: 1100px; margin: 0 auto; padding: 0 clamp(1.5rem, 5vw, 4rem); }
+        section { padding: clamp(32px, 4vw, 64px) 0; }
+
+        h1, h2, h3, h4 { font-family: var(--font-primary); color: var(--white); line-height: 1.1; letter-spacing: -0.03em; }
+        h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 900; }
+        h2 { font-size: clamp(1.8rem, 3.5vw, 2.4rem); font-weight: 700; margin-bottom: 0.5rem; }
+        h3 { font-size: clamp(0.85rem, 1vw, 0.95rem); font-weight: 700; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--signal); font-family: var(--font-mono); }
+        h4 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
+
+        .section-label { font-family: var(--font-mono); font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.15em; color: var(--signal); margin-bottom: 1.5rem; }
+        .section-sub { font-size: clamp(1rem, 1.2vw, 1.1rem); color: var(--steel); max-width: 720px; margin-top: 1rem; line-height: 1.75; }
+
+        /* HEADER (reuse) */
+        header { position: fixed; top: 24px; left: 50%; transform: translateX(-50%); z-index: 100; display: flex; align-items: center; gap: 2rem; padding: 12px 28px; background: rgba(10, 10, 15, 0.7); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 100px; transition: all 0.4s var(--ease-out-expo); max-width: 90vw; }
+        header.scrolled { top: 12px; padding: 8px 24px; background: rgba(10,10,15,0.85); border-color: rgba(255,255,255,0.12); }
+        .logo { font-family: var(--font-primary); font-weight: 900; font-size: 1rem; color: var(--white); text-decoration: none; white-space: nowrap; letter-spacing: -0.02em; }
+        .logo span { background: linear-gradient(135deg, var(--signal), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        nav { display: flex; gap: 0.25rem; align-items: center; }
+        nav a { font-size: 0.8rem; font-weight: 500; color: var(--steel); text-decoration: none; padding: 6px 14px; border-radius: 100px; transition: color 0.25s ease, background 0.25s ease; }
+        nav a:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+        nav a.active { color: var(--white); }
+        .nav-cta { font-size: 0.8rem; font-weight: 600; color: var(--void) !important; background: var(--signal) !important; padding: 8px 20px !important; border-radius: 100px; transition: background 0.25s ease !important; }
+        .nav-cta:hover { background: var(--signal-hover) !important; }
+        .hamburger { display: none; background: none; border: none; cursor: pointer; width: 28px; height: 20px; position: relative; }
+        .hamburger span { display: block; width: 100%; height: 2px; background: var(--white); border-radius: 2px; position: absolute; left: 0; transition: all 0.3s ease; }
+        .hamburger span:nth-child(1) { top: 0; } .hamburger span:nth-child(2) { top: 9px; } .hamburger span:nth-child(3) { top: 18px; }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg); top: 9px; }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg); top: 9px; }
+        .mobile-menu { position: fixed; inset: 0; z-index: 99; background: rgba(10,10,15,0.95); backdrop-filter: blur(30px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; opacity: 0; pointer-events: none; transition: opacity 0.4s var(--ease-out-expo); }
+        .mobile-menu.open { opacity: 1; pointer-events: all; }
+        .mobile-menu a { font-size: 1.5rem; font-weight: 700; color: var(--white); text-decoration: none; opacity: 0; transform: translateY(20px); transition: opacity 0.4s ease, transform 0.4s var(--ease-out-expo), color 0.2s ease; }
+        .mobile-menu.open a { opacity: 1; transform: translateY(0); }
+        .mobile-menu a:hover { color: var(--signal); }
+        .mobile-menu a:nth-child(1) { transition-delay: 0.05s; } .mobile-menu a:nth-child(2) { transition-delay: 0.1s; }
+        .mobile-menu a:nth-child(3) { transition-delay: 0.15s; } .mobile-menu a:nth-child(4) { transition-delay: 0.2s; }
+        .mobile-menu a:nth-child(5) { transition-delay: 0.25s; } .mobile-menu a:nth-child(6) { transition-delay: 0.3s; }
+        @media (max-width: 768px) { nav { display: none; } .hamburger { display: block; } }
+
+        /* HERO */
+        .cs-hero { min-height: 55vh; display: flex; flex-direction: column; justify-content: center; padding: clamp(120px, 14vh, 180px) 0 clamp(40px, 6vh, 80px); }
+        .hero-label { font-family: var(--font-mono); font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.2em; color: var(--signal); margin-bottom: 2rem; }
+        .cs-hero h1 { margin-bottom: 1.5rem; max-width: 900px; }
+        .cs-hero .hero-sub { font-size: clamp(1.05rem, 1.3vw, 1.2rem); color: var(--steel); max-width: 720px; line-height: 1.7; }
+
+        /* CASE STUDY BLOCK */
+        .cs-block { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 20px; padding: clamp(2rem, 3.5vw, 3rem); margin-bottom: 2rem; transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease; position: relative; overflow: hidden; }
+        .cs-block::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--signal), var(--purple)); opacity: 0.5; }
+        .cs-block:hover { background: var(--glass-hover-bg); border-color: var(--glass-hover-border); box-shadow: 0 0 40px rgba(0,102,255,0.06); }
+        .cs-tag { font-family: var(--font-mono); font-size: 0.7rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.15em; color: var(--signal); display: block; margin-bottom: 0.75rem; }
+        .cs-title { font-size: clamp(1.8rem, 3vw, 2.2rem); font-weight: 900; letter-spacing: -0.02em; color: var(--white); margin-bottom: 0.5rem; }
+        .cs-location { font-family: var(--font-mono); font-size: 0.75rem; color: var(--steel); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 2rem; display: block; }
+
+        .cs-body { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; }
+        @media (max-width: 900px) { .cs-body { grid-template-columns: 1fr; } }
+        .cs-body h3 { margin-bottom: 0.75rem; }
+        .cs-body p { font-size: 0.95rem; color: var(--steel); line-height: 1.7; }
+        .cs-body ul { list-style: none; padding: 0; }
+        .cs-body ul li { font-size: 0.95rem; color: var(--white); line-height: 1.6; padding: 0.4rem 0 0.4rem 1.25rem; position: relative; }
+        .cs-body ul li::before { content: '→'; position: absolute; left: 0; color: var(--signal); font-weight: 700; }
+
+        .cs-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--glass-border); }
+        .cs-metric { text-align: center; padding: 1rem; }
+        .cs-metric-value { font-family: var(--font-primary); font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 900; color: var(--white); line-height: 1; letter-spacing: -0.02em; margin-bottom: 0.4rem; }
+        .cs-metric-value .unit { font-size: 0.55em; color: var(--signal); font-weight: 500; }
+        .cs-metric-label { font-family: var(--font-mono); font-size: 0.65rem; color: var(--steel); text-transform: uppercase; letter-spacing: 0.12em; }
+
+        .cs-stack { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--glass-border); }
+        .cs-stack span { font-family: var(--font-mono); font-size: 0.65rem; padding: 4px 10px; border-radius: 100px; background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border); color: var(--steel); }
+
+        /* CTA */
+        .cta-section { text-align: center; padding: clamp(48px, 6vw, 80px) 0; }
+        .btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-primary); font-size: 1rem; font-weight: 600; color: var(--void); background: var(--signal); padding: 16px 36px; border-radius: 100px; text-decoration: none; transition: background 0.3s ease, box-shadow 0.3s ease; }
+        .btn-primary:hover { background: var(--signal-hover); box-shadow: 0 0 40px rgba(0,102,255,0.25); }
+
+        /* REVEAL */
+        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo); }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        footer { position: relative; z-index: 3; text-align: center; padding: 3rem 2rem; font-size: 0.8rem; color: var(--steel-dark); border-top: 1px solid var(--glass-border); }
+        footer a { color: var(--steel); text-decoration: none; transition: color 0.25s ease; }
+        footer a:hover { color: var(--signal); }
+
+        .skip-link { position: absolute; top: -100px; left: 50%; transform: translateX(-50%); background: var(--signal); color: var(--void); padding: 12px 24px; border-radius: 100px; font-weight: 600; font-size: 0.9rem; z-index: 200; text-decoration: none; transition: top 0.2s ease; }
+        .skip-link:focus { top: 16px; }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
+    <div class="noise-overlay" aria-hidden="true"></div>
+
+    <header>
+        <a href="/" class="logo">Flow<span>state</span></a>
+        <nav>
+            <a href="/about">About</a>
+            <a href="/services">DEF</a>
+            <a href="/case-studies" class="active">Case Studies</a>
+            <a href="/contact">Contact</a>
+            <a href="https://wa.me/50237408644" target="_blank" rel="noopener" class="nav-cta">Get Started</a>
+        </nav>
+        <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/services">DEF</a>
+        <a href="/case-studies">Case Studies</a>
+        <a href="/contact">Contact</a>
+    </div>
+
+    <main id="main-content">
+        <!-- HERO -->
+        <section class="cs-hero">
+            <div class="section-container">
+                <div class="hero-label">// CASE STUDIES</div>
+                <h1>Real operations. Real numbers.</h1>
+                <p class="hero-sub">Four hospitality teams where the Flowstate Method now runs daily. What they had before. What we built. What changed — with numbers.</p>
+            </div>
+        </section>
+
+        <!-- SABABA -->
+        <section class="reveal">
+            <div class="section-container">
+                <div class="cs-block">
+                    <span class="cs-tag">// CASE STUDY 01 — BOUTIQUE RESORT</span>
+                    <div class="cs-title">Sababa Resort</div>
+                    <span class="cs-location">San Pedro La Laguna &middot; Lake Atitlán &middot; Guatemala</span>
+
+                    <div class="cs-body">
+                        <div>
+                            <h3>The Challenge</h3>
+                            <p>A 25-room boutique resort with an on-site restaurant, running 100% on cash across two Square POS accounts. Hotel rooms lived in Cloudbeds. Finances lived in heads and paper. The owner had no unified view of revenue, no way to connect reception to restaurant sales, and no automations. Every daily close was manual. Every reconciliation was a guess.</p>
+                        </div>
+                        <div>
+                            <h3>What We Built</h3>
+                            <ul>
+                                <li>Square POS integration across Reception + Restaurant accounts</li>
+                                <li>Cloudbeds PMS sync for all 25 rooms</li>
+                                <li>5 automated workflows: sales sync, cancellation tracking, daily summaries, stock alerts, close-of-day</li>
+                                <li>Unified dashboard pulling both POS streams into one view</li>
+                                <li>16 profit optimization moves identified in audit</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="cs-metrics">
+                        <div class="cs-metric">
+                            <div class="cs-metric-value">Q5.18<span class="unit">M</span></div>
+                            <div class="cs-metric-label">Revenue Tracked</div>
+                        </div>
+                        <div class="cs-metric">
+                            <div class="cs-metric-value">6 <span class="unit">mo</span></div>
+                            <div class="cs-metric-label">First Deployment</div>
+                        </div>
+                        <div class="cs-metric">
+                            <div class="cs-metric-value">25</div>
+                            <div class="cs-metric-label">Rooms Synced</div>
+                        </div>
+                        <div class="cs-metric">
+                            <div class="cs-metric-value">+Q1.77<span class="unit">M</span></div>
+                            <div class="cs-metric-label">Annual Upside Identified</div>
+                        </div>
+                    </div>
+
+                    <div class="cs-stack">
+                        <span>POS Integration</span><span>PMS Sync</span><span>Automations</span><span>Dashboard</span><span>Audit</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- IX BALAM -->
+        <section class="reveal">
+            <div class="section-container">
+                <div class="cs-block">
+                    <span class="cs-tag">// CASE STUDY 02 — WELLNESS RETREAT</span>
+                    <div class="cs-title">IX Balam</div>
+                    <span class="cs-location">Lake Atitlán &middot; Guatemala</span>
+
+                    <div class="cs-body">
+                        <div>
+                            <h3>The Challenge</h3>
+                            <p>An 11-room cultural retreat running ceremonies, music sessions, wellness programs, and seasonal events. No documented operations. No onboarding process — new staff learned by osmosis. Each role had its own mental model. Quality depended on who was on shift.</p>
+                        </div>
+                        <div>
+                            <h3>What We Built</h3>
+                            <ul>
+                                <li>31-page company wiki covering every operational area</li>
+                                <li>7 role-based onboarding checklists with real walkthroughs</li>
+                                <li>6 daily routine automations (housekeeping, guest handover, ceremonies prep)</li>
+                                <li>4 operational dashboards for owners and team leads</li>
+                                <li>Full glassmorphic brand manual from scratch</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="cs-metrics">
+                        <div class="cs-metric">
+                            <div class="cs-metric-value">31</div>
+                            <div class="cs-metric-label">Wiki Pages</div>
+                        </div>
+                        <div class="cs-metric">
+                            <div class="cs-metric-value">7</div>
+                            <div class="cs-metric-label">Onboarding Checklists</div>
+                        </div>
+                        <div class="cs-metric">
+                            <div class="cs-metric-value">6</div>
+                            <div class="cs-metric-label">Daily Routines</div>
+                        </div>
+                        <div class="cs-metric">
+                            <div class="cs-metric-value">4</div>
+                            <div class="cs-metric-label">Dashboards Live</div>
+                        </div>
+                    </div>
+
+                    <div class="cs-stack">
+                        <span>Wiki</span><span>Onboarding</span><span>Routines</span><span>Dashboards</span><span>Brand Manual</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SHANGRI-LA -->
+        <section class="reveal">
+            <div class="section-container">
+                <div class="cs-block">
+                    <span class="cs-tag">// CASE STUDY 03 — COFFEE ROASTERY &amp; DISTRIBUTION</span>
+                    <div class="cs-title">Shangri-La</div>
+                    <span class="cs-location">San Marcos La Laguna &middot; Lake Atitlán &middot; Guatemala</span>
+
+                    <div class="cs-body">
+                        <div>
+                            <h3>The Challenge</h3>
+                            <p>Coffee production plus a distribution line of artisan products. Four different bank formats. Multi-currency (GTQ + USD). Monthly reconciliation was a 3-day manual exercise. Sales tracking was ad-hoc. Team documentation lived in WhatsApp threads, untranslated between Spanish-speaking staff and English-speaking ownership.</p>
+                        </div>
+                        <div>
+                            <h3>What We Built</h3>
+                            <ul>
+                                <li>16-page bilingual company wiki (ES + EN)</li>
+                                <li>6 Standard Operating Procedures for production and distribution</li>
+                                <li>18-node automated bank reconciliation workflow</li>
+                                <li>Multi-currency handling across 4 bank statement formats</li>
+                                <li>Odoo 18 integration for accounting</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="cs-metrics">
+                        <div class="cs-metric">
+                            <div class="cs-metric-value">100<span class="unit">%</span></div>
+                            <div class="cs-metric-label">Q1 2026 Reconciliation</div>
+                        </div>
+                        <div class="cs-metric">
+                            <div class="cs-metric-value">4</div>
+                            <div class="cs-metric-label">Bank Formats</div>
+                        </div>
+                        <div class="cs-metric">
+                            <div class="cs-metric-value">2</div>
+                            <div class="cs-metric-label">Currencies (GTQ+USD)</div>
+                        </div>
+                        <div class="cs-metric">
+                            <div class="cs-metric-value">16</div>
+                            <div class="cs-metric-label">Bilingual Wiki Pages</div>
+                        </div>
+                    </div>
+
+                    <div class="cs-stack">
+                        <span>Bilingual Wiki</span><span>SOPs</span><span>Bank Reconciliation</span><span>Multi-Currency</span><span>Accounting Integration</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NANTLI -->
+        <section class="reveal">
+            <div class="section-container">
+                <div class="cs-block">
+                    <span class="cs-tag">// CASE STUDY 04 — CACAO BAR</span>
+                    <div class="cs-title">Nantli</div>
+                    <span class="cs-location">Guatemala</span>
+
+                    <div class="cs-body">
+                        <div>
+                            <h3>The Challenge</h3>
+                            <p>Two cacao bar locations with a growing retail operation, running point-of-sale on Loyverse. No data parity between POS and the operational workspace. Tax invoice reconciliation was manual — every FEL invoice had to be checked by hand against receipts. Cross-location inventory was invisible. Operations at two stores ran as two separate businesses.</p>
+                        </div>
+                        <div>
+                            <h3>What We Built</h3>
+                            <ul>
+                                <li>5 real-time POS sync workflows (sales, items, stock, shifts, close)</li>
+                                <li>Python scripts for batch tax invoice parsing</li>
+                                <li>100% data parity between Loyverse POS and operational workspace</li>
+                                <li>Instagram carousel generator for product drops</li>
+                                <li>Multi-location consolidation into one view</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="cs-metrics">
+                        <div class="cs-metric">
+                            <div class="cs-metric-value">4,439</div>
+                            <div class="cs-metric-label">Receipts Synced</div>
+                        </div>
+                        <div class="cs-metric">
+                            <div class="cs-metric-value">930</div>
+                            <div class="cs-metric-label">Tax Invoices Parsed</div>
+                        </div>
+                        <div class="cs-metric">
+                            <div class="cs-metric-value">100<span class="unit">%</span></div>
+                            <div class="cs-metric-label">Data Parity</div>
+                        </div>
+                        <div class="cs-metric">
+                            <div class="cs-metric-value">5</div>
+                            <div class="cs-metric-label">Live Workflows</div>
+                        </div>
+                    </div>
+
+                    <div class="cs-stack">
+                        <span>POS Sync</span><span>Tax Compliance</span><span>Multi-Location</span><span>Real-Time</span><span>Content Automation</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section reveal">
+            <div class="section-container">
+                <h2>Your operation could be next.</h2>
+                <p class="section-sub" style="margin: 1rem auto 2.5rem;">We diagnose your team's workflow, identify where requests get lost, and scope the build. No commitment. No consulting fees.</p>
+                <a href="/contact" class="btn-primary">Start the conversation →</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        &copy; 2026 Flowstate Technologies&trade; &middot; Guatemala &middot; <a href="/">flowstate.help</a> &middot; Precision in Motion.&trade;
+    </footer>
+
+    <script>
+    (function() {
+        'use strict';
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => { header.classList.toggle('scrolled', window.scrollY > 50); }, { passive: true });
+
+        const hamburger = document.querySelector('.hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        hamburger.addEventListener('click', () => {
+            const isOpen = mobileMenu.classList.toggle('open');
+            hamburger.classList.toggle('active');
+            hamburger.setAttribute('aria-expanded', isOpen);
+            document.body.style.overflow = isOpen ? 'hidden' : '';
+        });
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => { mobileMenu.classList.remove('open'); hamburger.classList.remove('active'); hamburger.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; });
+        });
+        document.addEventListener('keydown', (e) => {
+            if (!mobileMenu.classList.contains('open')) return;
+            if (e.key === 'Escape') { hamburger.click(); hamburger.focus(); return; }
+            if (e.key !== 'Tab') return;
+            const focusable = [hamburger, ...mobileMenu.querySelectorAll('a')];
+            const first = focusable[0], last = focusable[focusable.length - 1];
+            if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+            else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        });
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!prefersReducedMotion) {
+            const revealObs = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
+            document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+        } else { document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible')); }
+    })();
+    </script>
+</body>
+</html>
